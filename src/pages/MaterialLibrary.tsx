@@ -160,12 +160,17 @@ export function MaterialLibrary() {
         code: data.materialCode || `MAT-${Date.now().toString(36).toUpperCase().slice(-8)}`,
         name: `${data.materialTopCategory} - ${data.materialSubCategory}`,
         materialType: data.materialTopCategory,
+        materialTopCategory: data.materialTopCategory || '',
+        materialSubCategory: data.materialSubCategory || '',
+        fiberContents: data.fiberContents || '',
+        finishedWeight: Number(data.finishedWeight) || 0,
+        materialWidth: Number(data.materialWidth) || 0,
         supplier: data.supplierName || '',
         supplierId: '',
         origin: data.countryOfProduction || '',
         weight: Number(data.finishedWeight) || 0,
         width: Number(data.materialWidth) || 0,
-        composition: data.fiberContents,
+        composition: data.fiberContents || '',
         color: '',
         yarnSpec: '',
         price: 0,
@@ -174,9 +179,9 @@ export function MaterialLibrary() {
         stockStatus: 'in_stock',
         status: 'pending',
         images: [],
-        description: data.comments || '',
-        certifications: [],
-        testReports: []
+        documents: [],
+        remarks: data.comments || '',
+        createdBy: 'Admin',
       };
       addMaterial(newMaterial);
     });
@@ -216,11 +221,11 @@ export function MaterialLibrary() {
         subtitle="v1.0"
         actions={
           <div className="flex items-center gap-2">
-            <Button variant="outline" onClick={() => setShowImportModal(true)}>
+            <Button variant="ghost" onClick={() => setShowImportModal(true)}>
               <Upload className="w-4 h-4" />
               Import
             </Button>
-            <Button variant="outline" onClick={handleExport}>
+            <Button variant="ghost" onClick={handleExport}>
               <Download className="w-4 h-4" />
               Export
             </Button>

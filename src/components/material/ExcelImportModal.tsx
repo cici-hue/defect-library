@@ -282,7 +282,7 @@ export const ExcelImportModal: React.FC<ExcelImportModalProps> = ({
                       Get the Excel template with all required fields
                     </p>
                   </div>
-                  <Button variant="outline" onClick={downloadTemplate}>
+                  <Button variant="ghost" onClick={downloadTemplate}>
                     Download Template
                   </Button>
                 </div>
@@ -415,7 +415,7 @@ export const ExcelImportModal: React.FC<ExcelImportModalProps> = ({
 
         {/* Footer */}
         <div className="flex items-center justify-end gap-3 p-6 border-t border-gray-200">
-          <Button variant="outline" onClick={handleClose}>
+          <Button variant="ghost" onClick={handleClose}>
             Cancel
           </Button>
           {preview && preview.validCount > 0 && (

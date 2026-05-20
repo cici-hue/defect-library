@@ -2,12 +2,14 @@ import React, { ReactNode } from 'react';
 
 interface CardProps {
   title?: string;
+  subtitle?: string;
+  icon?: ReactNode;
   children: ReactNode;
   className?: string;
   noPadding?: boolean;
 }
 
-export function Card({ title, children, className = '', noPadding = false }: CardProps) {
+export function Card({ title, subtitle, icon, children, className = '', noPadding = false }: CardProps) {
   return (
     <div
       className={`bg-white rounded-xl shadow-[0_2px_8px_rgba(15,23,42,0.08)] ${
@@ -15,9 +17,15 @@ export function Card({ title, children, className = '', noPadding = false }: Car
       } ${className}`}
     >
       {title && (
-        <h2 className="text-lg font-bold text-[#1a3a5c] mb-4 pb-2 border-b border-[#e2e8f0]">
-          {title}
-        </h2>
+        <div className="mb-4 pb-2 border-b border-[#e2e8f0]">
+          <div className="flex items-center gap-2">
+            {icon && <span className="text-[#475569]">{icon}</span>}
+            <h2 className="text-lg font-bold text-[#1a3a5c]">{title}</h2>
+          </div>
+          {subtitle && (
+            <p className="text-sm text-[#64748b] mt-1">{subtitle}</p>
+          )}
+        </div>
       )}
       {children}
     </div>
