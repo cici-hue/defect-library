@@ -5,6 +5,7 @@ export interface SupplyChainData {
   materialCode: string;
   oiCode: string;
   countryOfProduction: string;
+  spinningFactory: string;
   weavingKnittingFactory: string;
   dyeingFactory: string;
   printingFactory: string;
@@ -55,6 +56,7 @@ export const defaultSupplyChainData: SupplyChainData = {
   materialCode: '',
   oiCode: '',
   countryOfProduction: '',
+  spinningFactory: '',
   weavingKnittingFactory: '',
   dyeingFactory: '',
   printingFactory: '',

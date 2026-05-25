@@ -21,6 +21,11 @@ export interface FiberContentItem {
   content: string;
 }
 
+export interface FabricDensityItem {
+  density: string;
+  number: string;
+}
+
 export interface MaterialSpecificationData {
   materialTopCategory: string;
   materialSubCategory: string;
@@ -28,10 +33,10 @@ export interface MaterialSpecificationData {
   brandedFiber: string;
   finishedWeight: string;
   materialFinishes: string[];
-  fabricDensity: string;
+  fabricDensity: FabricDensityItem[];
   materialWidth: string;
   cuttableWidth: string;
-  impressionIntents: string;
+  impressionIntents: string[];
   comments: string;
   materialFunction: string;
   sustainable: string;
@@ -227,15 +232,40 @@ export function MaterialSpecificationForm({ data, onChange }: MaterialSpecificat
         />
       </div>
 
-      {/* 第四行：Fabric Density + Material Width + Cuttable Width */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <SearchableSelect
-          label="Fabric Density"
-          value={data.fabricDensity}
-          options={fabricDensities}
-          onChange={(value) => handleChange('fabricDensity', value)}
-          placeholder="Select or search fabric density..."
-        />
+      {/* 第四行：Fabric Density (2 rows with dropdown + number) */}
+      <div className="space-y-3">
+        <label className="block text-sm font-medium text-[#334155]">
+          Fabric Density
+        </label>
+        {data.fabricDensity.map((item, index) => (
+          <div key={index} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <SearchableSelect
+              label=""
+              value={item.density}
+              options={fabricDensities}
+              onChange={(value) => {
+                const newDensity = [...data.fabricDensity];
+                newDensity[index] = { ...newDensity[index], density: value };
+                handleChange('fabricDensity', newDensity);
+              }}
+              placeholder={`Fabric Density ${index + 1}`}
+            />
+            <NumberInput
+              label=""
+              value={item.number}
+              onChange={(value) => {
+                const newDensity = [...data.fabricDensity];
+                newDensity[index] = { ...newDensity[index], number: value };
+                handleChange('fabricDensity', newDensity);
+              }}
+              placeholder="Enter number..."
+            />
+          </div>
+        ))}
+      </div>
+
+      {/* 第五行：Material Width + Cuttable Width */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <NumberInput
           label="Material Width (inch)"
           value={data.materialWidth}
@@ -253,14 +283,14 @@ export function MaterialSpecificationForm({ data, onChange }: MaterialSpecificat
         />
       </div>
 
-      {/* 第五行：Impression Intents + Material Function */}
+      {/* 第六行：Impression Intents + Material Function */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <SearchableSelect
+        <MultiSelect
           label="Impression Intents"
-          value={data.impressionIntents}
+          values={data.impressionIntents}
           options={impressionIntents}
           onChange={(value) => handleChange('impressionIntents', value)}
-          placeholder="Select or search impression intent..."
+          placeholder="Select impression intents..."
         />
         <SearchableSelect
           label="Material Function (Able to Claim)"

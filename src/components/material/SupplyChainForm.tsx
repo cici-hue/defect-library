@@ -8,6 +8,7 @@ export interface SupplyChainData {
   materialCode: string;
   oiCode: string;
   countryOfProduction: string;
+  spinningFactory: string;
   weavingKnittingFactory: string;
   dyeingFactory: string;
   printingFactory: string;
@@ -63,30 +64,40 @@ export function SupplyChainForm({ data, onChange }: SupplyChainFormProps) {
         />
       </div>
 
-      {/* 第三行：Weaving/Knitting Factory + Dyeing Factory */}
+      {/* 第三行：Spinning Factory + Weaving/Knitting Factory */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <TextInput
+          label="Spinning Factory"
+          value={data.spinningFactory}
+          onChange={(value) => handleChange('spinningFactory', value)}
+          placeholder="Enter spinning factory..."
+        />
         <TextInput
           label="Weaving/Knitting Factory"
           value={data.weavingKnittingFactory}
           onChange={(value) => handleChange('weavingKnittingFactory', value)}
           placeholder="Enter weaving/knitting factory..."
         />
+      </div>
+
+      {/* 第四行：Dyeing Factory + Printing Factory */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <TextInput
           label="Dyeing Factory"
           value={data.dyeingFactory}
           onChange={(value) => handleChange('dyeingFactory', value)}
           placeholder="Enter dyeing factory..."
         />
-      </div>
-
-      {/* 第四行：Printing Factory + Finishing Factory */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <TextInput
           label="Printing Factory"
           value={data.printingFactory}
           onChange={(value) => handleChange('printingFactory', value)}
           placeholder="Enter printing factory..."
         />
+      </div>
+
+      {/* 第五行：Finishing Factory */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <TextInput
           label="Finishing Factory"
           value={data.finishingFactory}
