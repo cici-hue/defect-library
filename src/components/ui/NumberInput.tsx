@@ -53,11 +53,12 @@ export function NumberInput({
 
   return (
     <div className={cn('relative', className)}>
-      <label className="block text-sm font-medium text-[#1e293b] mb-1.5">
-        {label}
-        {required && <span className="text-red-500 ml-1">*</span>}
-      </label>
-
+      {label && (
+        <label className="block text-sm font-medium text-[#1e293b] mb-1.5">
+          {label}
+          {required && <span className="text-red-500 ml-1">*</span>}
+        </label>
+      )}
       <div className="relative">
         <input
           type="text"
