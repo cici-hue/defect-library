@@ -390,7 +390,7 @@ export const materialSpecificationFields: MaterialSpecificationField[] = [
 export const defaultMaterialSpecification = {
   materialTopCategory: '',
   materialSubCategory: '',
-  fiberContents: '',
+  fiberContents: [{ percentage: '100', content: '' }],
   brandedFiber: '',
   finishedWeight: '',
   materialFinishes: [],
