@@ -391,7 +391,7 @@ export const defaultMaterialSpecification = {
   materialTopCategory: '',
   materialSubCategory: '',
   fiberContents: [{ percentage: '100', content: '' }],
-  brandedFiber: '',
+  brandedFibers: [''],
   finishedWeight: '',
   materialFinishes: [],
   fabricDensity: [

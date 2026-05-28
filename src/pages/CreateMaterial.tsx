@@ -125,6 +125,7 @@ export function CreateMaterial() {
       materialTopCategory: specificationData.materialTopCategory,
       materialSubCategory: specificationData.materialSubCategory,
       fiberContents: specificationData.fiberContents.map(f => f.content).filter(Boolean).join(', '),
+      brandedFiber: specificationData.brandedFibers.filter(Boolean).join(', '),
       finishedWeight: Number(specificationData.finishedWeight) || 0,
       materialWidth: Number(specificationData.materialWidth) || 0,
       supplier: supplyChainData.materialSupplierName,

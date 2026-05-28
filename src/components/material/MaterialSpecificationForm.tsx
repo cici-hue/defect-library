@@ -30,7 +30,7 @@ export interface MaterialSpecificationData {
   materialTopCategory: string;
   materialSubCategory: string;
   fiberContents: FiberContentItem[];
-  brandedFiber: string;
+  brandedFibers: string[];
   finishedWeight: string;
   materialFinishes: string[];
   fabricDensity: FabricDensityItem[];
@@ -83,11 +83,14 @@ export function MaterialSpecificationForm({ data, onChange }: MaterialSpecificat
 
   const addFiberContent = () => {
     const newFiberContents = [...data.fiberContents, { percentage: '', content: '' }];
+    const newBrandedFibers = [...data.brandedFibers, ''];
     handleChange('fiberContents', newFiberContents);
+    handleChange('brandedFibers', newBrandedFibers);
   };
 
   const removeFiberContent = (index: number) => {
     const newFiberContents = data.fiberContents.filter((_, i) => i !== index);
+    const newBrandedFibers = data.brandedFibers.filter((_, i) => i !== index);
     
     // Auto-set to 100% if only one item remains
     if (newFiberContents.length === 1) {
@@ -95,7 +98,14 @@ export function MaterialSpecificationForm({ data, onChange }: MaterialSpecificat
     }
     
     handleChange('fiberContents', newFiberContents);
+    handleChange('brandedFibers', newBrandedFibers);
     validatePercentage(newFiberContents);
+  };
+
+  const handleBrandedFiberChange = (index: number, value: string) => {
+    const newBrandedFibers = [...data.brandedFibers];
+    newBrandedFibers[index] = value;
+    handleChange('brandedFibers', newBrandedFibers);
   };
 
   const getFiberContentLabel = (index: number) => {
@@ -196,16 +206,14 @@ export function MaterialSpecificationForm({ data, onChange }: MaterialSpecificat
               </div>
             </div>
             
-            {/* Branded Fiber - only show on first row */}
-            {index === 0 && (
-              <SearchableSelect
-                label=""
-                value={data.brandedFiber}
-                options={brandedFibers}
-                onChange={(value) => handleChange('brandedFiber', value)}
-                placeholder="Select or search branded fiber..."
-              />
-            )}
+            {/* Branded Fiber - each row has its own */}
+            <SearchableSelect
+              label=""
+              value={data.brandedFibers[index] || ''}
+              options={brandedFibers}
+              onChange={(value) => handleBrandedFiberChange(index, value)}
+              placeholder="Select or search branded fiber..."
+            />
           </div>
         ))}
         
