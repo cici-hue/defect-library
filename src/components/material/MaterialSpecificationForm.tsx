@@ -157,20 +157,28 @@ export function MaterialSpecificationForm({ data, onChange }: MaterialSpecificat
               {index === 0 ? (
                 <button
                   type="button"
-                  onClick={addFiberContent}
-                  className="flex-shrink-0 w-6 h-6 rounded-full bg-[#475569] text-white flex items-center justify-center hover:bg-[#334155] transition-colors"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    addFiberContent();
+                  }}
+                  className="flex-shrink-0 w-6 h-6 rounded-full bg-[#475569] text-white flex items-center justify-center hover:bg-[#334155] transition-colors cursor-pointer z-10"
                   title="Add another fiber content"
                 >
-                  <Plus className="w-3.5 h-3.5" />
+                  <Plus className="w-3.5 h-3.5 pointer-events-none" />
                 </button>
               ) : (
                 <button
                   type="button"
-                  onClick={() => removeFiberContent(index)}
-                  className="flex-shrink-0 w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center hover:bg-red-600 transition-colors"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    removeFiberContent(index);
+                  }}
+                  className="flex-shrink-0 w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center hover:bg-red-600 transition-colors cursor-pointer z-10"
                   title="Remove"
                 >
-                  <X className="w-3.5 h-3.5" />
+                  <X className="w-3.5 h-3.5 pointer-events-none" />
                 </button>
               )}
               
