@@ -395,8 +395,8 @@ export const defaultMaterialSpecification = {
   finishedWeight: '',
   materialFinishes: [],
   fabricDensity: [
-    { density: '', number: '' },
-    { density: '', number: '' },
+    { density: '', number: '', gauge: '' },
+    { density: '', number: '', gauge: '' },
   ],
   materialWidth: '',
   cuttableWidth: '',

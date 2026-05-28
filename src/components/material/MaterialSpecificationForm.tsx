@@ -24,6 +24,7 @@ export interface FiberContentItem {
 export interface FabricDensityItem {
   density: string;
   number: string;
+  gauge: string;
 }
 
 export interface MaterialSpecificationData {
@@ -247,13 +248,21 @@ export function MaterialSpecificationForm({ data, onChange }: MaterialSpecificat
         />
       </div>
 
-      {/* 第四行：Fabric Density (2 rows with dropdown + number) */}
+      {/* 第四行：Fabric Density + Gauge (2 rows with 3 columns) */}
       <div className="space-y-3">
-        <label className="block text-sm font-medium text-[#334155]">
-          Fabric Density
-        </label>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <label className="block text-sm font-medium text-[#334155]">
+            Fabric Density
+          </label>
+          <label className="block text-sm font-medium text-[#334155]">
+            Number
+          </label>
+          <label className="block text-sm font-medium text-[#334155]">
+            Gauge (Only applicable for knit)
+          </label>
+        </div>
         {data.fabricDensity.map((item, index) => (
-          <div key={index} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div key={index} className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <SearchableSelect
               label=""
               value={item.density}
@@ -274,6 +283,17 @@ export function MaterialSpecificationForm({ data, onChange }: MaterialSpecificat
                 handleChange('fabricDensity', newDensity);
               }}
               placeholder="Enter number..."
+            />
+            <NumberInput
+              label=""
+              value={item.gauge}
+              onChange={(value) => {
+                const newDensity = [...data.fabricDensity];
+                newDensity[index] = { ...newDensity[index], gauge: value };
+                handleChange('fabricDensity', newDensity);
+              }}
+              placeholder="Enter gauge..."
+              suffix="GG"
             />
           </div>
         ))}

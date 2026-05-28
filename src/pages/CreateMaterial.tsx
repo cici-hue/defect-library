@@ -134,7 +134,7 @@ export function CreateMaterial() {
       weight: Number(specificationData.finishedWeight) || 0,
       width: Number(specificationData.materialWidth) || 0,
       composition: specificationData.fiberContents.map(f => `${f.percentage}% ${f.content}`).filter(f => f.includes('%')).join(', '),
-      fabricDensity: specificationData.fabricDensity.map(d => `${d.density} ${d.number}`).filter(Boolean).join(', '),
+      fabricDensity: specificationData.fabricDensity.map(d => `${d.density} ${d.number} ${d.gauge ? d.gauge + 'GG' : ''}`).filter(Boolean).join(', '),
       color: '',
       yarnSpec: '',
       price: 0,
