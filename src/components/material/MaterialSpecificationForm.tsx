@@ -154,33 +154,29 @@ export function MaterialSpecificationForm({ data, onChange }: MaterialSpecificat
           <div key={index} className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="flex items-center gap-3">
               {/* + button for first item, X button for others */}
-              {index === 0 ? (
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    addFiberContent();
-                  }}
-                  className="flex-shrink-0 w-6 h-6 rounded-full bg-[#475569] text-white flex items-center justify-center hover:bg-[#334155] transition-colors cursor-pointer z-10"
-                  title="Add another fiber content"
-                >
-                  <Plus className="w-3.5 h-3.5 pointer-events-none" />
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    removeFiberContent(index);
-                  }}
-                  className="flex-shrink-0 w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center hover:bg-red-600 transition-colors cursor-pointer z-10"
-                  title="Remove"
-                >
-                  <X className="w-3.5 h-3.5 pointer-events-none" />
-                </button>
-              )}
+              <div className="flex-shrink-0">
+                {index === 0 ? (
+                  <div
+                    onClick={() => addFiberContent()}
+                    className="w-6 h-6 rounded-full bg-[#475569] text-white flex items-center justify-center hover:bg-[#334155] transition-colors cursor-pointer"
+                    title="Add another fiber content"
+                    role="button"
+                    tabIndex={0}
+                  >
+                    <Plus className="w-3.5 h-3.5" />
+                  </div>
+                ) : (
+                  <div
+                    onClick={() => removeFiberContent(index)}
+                    className="w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center hover:bg-red-600 transition-colors cursor-pointer"
+                    title="Remove"
+                    role="button"
+                    tabIndex={0}
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </div>
+                )}
+              </div>
               
               {/* Percentage Input */}
               <div className="flex-shrink-0 w-24">
