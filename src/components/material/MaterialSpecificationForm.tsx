@@ -127,67 +127,85 @@ export function MaterialSpecificationForm({ data, onChange }: MaterialSpecificat
         />
       </div>
 
-      {/* Fiber Contents - Multi-row with percentage */}
+      {/* Fiber Contents + Branded Fiber */}
       <div className="space-y-3">
-        <label className="block text-sm font-medium text-[#334155]">
-          Fiber Contents
-          <span className="text-red-500 ml-1">*</span>
-        </label>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <label className="block text-sm font-medium text-[#334155]">
+            Fiber Contents
+            <span className="text-red-500 ml-1">*</span>
+          </label>
+          <label className="block text-sm font-medium text-[#334155]">
+            Branded Fiber
+          </label>
+        </div>
         
         {data.fiberContents.map((item, index) => (
-          <div key={index} className="flex items-center gap-3">
-            {/* + button for first item, X button for others */}
-            {index === 0 ? (
-              <button
-                type="button"
-                onClick={addFiberContent}
-                className="flex-shrink-0 w-6 h-6 rounded-full bg-[#475569] text-white flex items-center justify-center hover:bg-[#334155] transition-colors"
-                title="Add another fiber content"
-              >
-                <Plus className="w-3.5 h-3.5" />
-              </button>
-            ) : (
-              <button
-                type="button"
-                onClick={() => removeFiberContent(index)}
-                className="flex-shrink-0 w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center hover:bg-red-600 transition-colors"
-                title="Remove"
-              >
-                <X className="w-3.5 h-3.5" />
-              </button>
-            )}
-            
-            {/* Percentage Input */}
-            <div className="flex-shrink-0 w-24">
-              <div className="relative">
-                <input
-                  type="text"
-                  inputMode="numeric"
-                  pattern="[0-9]*"
-                  value={item.percentage}
-                  onChange={(e) => {
-                    const val = e.target.value.replace(/[^0-9]/g, '');
-                    handleFiberContentChange(index, 'percentage', val);
-                  }}
-                  placeholder="0"
-                  className="w-full px-3 py-2 border border-[#e2e8f0] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#475569] focus:border-transparent pr-6"
+          <div key={index} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="flex items-center gap-3">
+              {/* + button for first item, X button for others */}
+              {index === 0 ? (
+                <button
+                  type="button"
+                  onClick={addFiberContent}
+                  className="flex-shrink-0 w-6 h-6 rounded-full bg-[#475569] text-white flex items-center justify-center hover:bg-[#334155] transition-colors"
+                  title="Add another fiber content"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => removeFiberContent(index)}
+                  className="flex-shrink-0 w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center hover:bg-red-600 transition-colors"
+                  title="Remove"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+              
+              {/* Percentage Input */}
+              <div className="flex-shrink-0 w-24">
+                <div className="relative">
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    pattern="[0-9]*"
+                    value={item.percentage}
+                    onChange={(e) => {
+                      const val = e.target.value.replace(/[^0-9]/g, '');
+                      handleFiberContentChange(index, 'percentage', val);
+                    }}
+                    placeholder="0"
+                    className="w-full px-3 py-2 border border-[#e2e8f0] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#475569] focus:border-transparent pr-6"
+                  />
+                  <span className="absolute right-2 top-1/2 -translate-y-1/2 text-sm text-[#94a3b8]">%</span>
+                </div>
+              </div>
+              
+              {/* Fiber Content Select */}
+              <div className="flex-1">
+                <SearchableSelect
+                  label=""
+                  value={item.content}
+                  options={fiberContents}
+                  onChange={(value) => handleFiberContentChange(index, 'content', value)}
+                  placeholder={getFiberContentLabel(index)}
+                  required={index === 0}
+                  className="w-full"
                 />
-                <span className="absolute right-2 top-1/2 -translate-y-1/2 text-sm text-[#94a3b8]">%</span>
               </div>
             </div>
             
-            {/* Fiber Content Select */}
-            <div className="flex-1">
+            {/* Branded Fiber - only show on first row */}
+            {index === 0 && (
               <SearchableSelect
                 label=""
-                value={item.content}
-                options={fiberContents}
-                onChange={(value) => handleFiberContentChange(index, 'content', value)}
-                placeholder={getFiberContentLabel(index)}
-                required={index === 0}
-                className="w-full"
+                value={data.brandedFiber}
+                options={brandedFibers}
+                onChange={(value) => handleChange('brandedFiber', value)}
+                placeholder="Select or search branded fiber..."
               />
-            </div>
+            )}
           </div>
         ))}
         
@@ -200,17 +218,6 @@ export function MaterialSpecificationForm({ data, onChange }: MaterialSpecificat
         <div className="text-sm text-[#64748b]">
           Total: {data.fiberContents.reduce((sum, item) => sum + (Number(item.percentage) || 0), 0)}%
         </div>
-      </div>
-
-      {/* Branded Fiber */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <SearchableSelect
-          label="Branded Fiber"
-          value={data.brandedFiber}
-          options={brandedFibers}
-          onChange={(value) => handleChange('brandedFiber', value)}
-          placeholder="Select or search branded fiber..."
-        />
       </div>
 
       {/* 第三行：Finished Weight + Material Finishes */}
