@@ -52,6 +52,11 @@ interface MaterialSpecificationFormProps {
 export function MaterialSpecificationForm({ data, onChange }: MaterialSpecificationFormProps) {
   const [percentageError, setPercentageError] = useState<string>('');
 
+  // Debug: log data changes
+  useEffect(() => {
+    console.log('Fiber contents updated:', data.fiberContents);
+  }, [data.fiberContents]);
+
   const handleChange = <K extends keyof MaterialSpecificationData>(
     field: K,
     value: MaterialSpecificationData[K]
