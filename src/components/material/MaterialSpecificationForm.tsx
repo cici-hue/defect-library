@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SearchableSelect } from '../ui/SearchableSelect';
 import { MultiSelect } from '../ui/MultiSelect';
 import { NumberInput } from '../ui/NumberInput';
