@@ -158,7 +158,7 @@ export function MaterialSpecificationForm({ data, onChange }: MaterialSpecificat
         </div>
         
         {data.fiberContents.map((item, index) => (
-          <div key={index} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div key={`fiber-${index}`} className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="flex items-center gap-3">
               {/* + button for first item, X button for others */}
               <div className="flex-shrink-0">
