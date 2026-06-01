@@ -83,8 +83,10 @@ export function MaterialSpecificationForm({ data, onChange }: MaterialSpecificat
   };
 
   const addFiberContent = () => {
+    console.log('addFiberContent called, current length:', data.fiberContents.length);
     const newFiberContents = [...data.fiberContents, { percentage: '', content: '' }];
     const newBrandedFibers = [...data.brandedFibers, ''];
+    console.log('New fiber contents:', newFiberContents);
     handleChange('fiberContents', newFiberContents);
     handleChange('brandedFibers', newBrandedFibers);
   };
