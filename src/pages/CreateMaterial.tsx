@@ -315,7 +315,7 @@ export function CreateMaterial() {
           </div>
 
           {/* Module 4: Material Test (Placeholder) */}
-          <div className="bg-white rounded-xl shadow-sm border border-[#e2e8f0] overflow-hidden">
+          <div className="bg-white rounded-xl shadow-sm border border-[#e2e8f0]">
             <button
               type="button"
               onClick={() => toggleModule('materialTest')}
