@@ -52,10 +52,10 @@ interface MaterialSpecificationFormProps {
 export function MaterialSpecificationForm({ data, onChange }: MaterialSpecificationFormProps) {
   const [percentageError, setPercentageError] = useState<string>('');
 
-  // Debug: log data changes
+  // 调试：log data changes
   useEffect(() => {
-    console.log('Fiber contents updated:', data.fiberContents);
-  }, [data.fiberContents]);
+    console.log('Fiber contents updated:', JSON.stringify(data.fiberContents));
+  }, [JSON.stringify(data.fiberContents)]);
 
   const handleChange = <K extends keyof MaterialSpecificationData>(
     field: K,
@@ -88,12 +88,13 @@ export function MaterialSpecificationForm({ data, onChange }: MaterialSpecificat
   };
 
   const addFiberContent = () => {
-    console.log('addFiberContent called, current length:', data.fiberContents.length);
     const newFiberContents = [...data.fiberContents, { percentage: '', content: '' }];
     const newBrandedFibers = [...data.brandedFibers, ''];
-    console.log('New fiber contents:', newFiberContents);
-    handleChange('fiberContents', newFiberContents);
-    handleChange('brandedFibers', newBrandedFibers);
+    onChange({
+      ...data,
+      fiberContents: newFiberContents,
+      brandedFibers: newBrandedFibers,
+    });
   };
 
   const removeFiberContent = (index: number) => {
@@ -105,8 +106,11 @@ export function MaterialSpecificationForm({ data, onChange }: MaterialSpecificat
       newFiberContents[0].percentage = '100';
     }
     
-    handleChange('fiberContents', newFiberContents);
-    handleChange('brandedFibers', newBrandedFibers);
+    onChange({
+      ...data,
+      fiberContents: newFiberContents,
+      brandedFibers: newBrandedFibers,
+    });
     validatePercentage(newFiberContents);
   };
 

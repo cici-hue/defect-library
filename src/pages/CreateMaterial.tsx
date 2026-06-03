@@ -10,6 +10,8 @@ import { Material } from '../types';
 import { stockStatusOptions, statusOptions } from '../data/mockData';
 import { defaultMaterialSpecification } from '../data/materialSpecificationData';
 import { defaultSupplyChainData } from '../data/supplyChainData';
+import { CostLeadTimeForm, CostLeadTimeData } from '../components/material/CostLeadTimeForm';
+import { defaultCostLeadTimeData } from '../data/costLeadTimeData';
 import {
   Save,
   X,
@@ -40,6 +42,9 @@ export function CreateMaterial() {
 
   // Supply Chain 数据
   const [supplyChainData, setSupplyChainData] = useState<SupplyChainData>(defaultSupplyChainData);
+
+  // Cost and Lead-time 数据
+  const [costLeadTimeData, setCostLeadTimeData] = useState<CostLeadTimeData>(defaultCostLeadTimeData);
 
   // 图片上传
   const [imageUrls, setImageUrls] = useState<string[]>([]);
@@ -295,7 +300,11 @@ export function CreateMaterial() {
 
             {expandedModules.includes('costLeadtime') && (
               <div className="p-6">
-                <p className="text-[#64748b] text-center py-8">Cost and Lead-time module coming soon...</p>
+                <CostLeadTimeForm
+                  data={costLeadTimeData}
+                  onChange={setCostLeadTimeData}
+                  cuttableWidth={specificationData.cuttableWidth}
+                />
               </div>
             )}
           </div>
