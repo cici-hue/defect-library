@@ -12,6 +12,8 @@ import { defaultMaterialSpecification } from '../data/materialSpecificationData'
 import { defaultSupplyChainData } from '../data/supplyChainData';
 import { CostLeadTimeForm, CostLeadTimeData } from '../components/material/CostLeadTimeForm';
 import { defaultCostLeadTimeData } from '../data/costLeadTimeData';
+import { MaterialTestForm, MaterialTestData } from '../components/material/MaterialTestForm';
+import { defaultMaterialTestData } from '../data/materialTestData';
 import {
   Save,
   X,
@@ -45,6 +47,9 @@ export function CreateMaterial() {
 
   // Cost and Lead-time 数据
   const [costLeadTimeData, setCostLeadTimeData] = useState<CostLeadTimeData>(defaultCostLeadTimeData);
+
+  // Material Test 数据
+  const [materialTestData, setMaterialTestData] = useState<MaterialTestData>(defaultMaterialTestData);
 
   // 图片上传
   const [imageUrls, setImageUrls] = useState<string[]>([]);
@@ -334,7 +339,10 @@ export function CreateMaterial() {
 
             {expandedModules.includes('materialTest') && (
               <div className="p-6">
-                <p className="text-[#64748b] text-center py-8">Material Test module coming soon...</p>
+                <MaterialTestForm
+                  data={materialTestData}
+                  onChange={setMaterialTestData}
+                />
               </div>
             )}
           </div>
