@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Calendar } from 'lucide-react';
+import { SearchableSelect } from '../ui/SearchableSelect';
 
 export interface CostLeadTimeData {
   usdPerMCuttable: string;
@@ -123,6 +124,91 @@ export function CostLeadTimeForm({ data, onChange, cuttableWidth }: CostLeadTime
                 className="w-full px-3 py-2 border border-[#e2e8f0] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#475569] focus:border-transparent pr-10"
               />
               <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#94a3b8] pointer-events-none" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 第二部分：Material MOQ */}
+      <div>
+        <h4 className="text-sm font-semibold text-[#334155] mb-4 flex items-center gap-2">
+          <span className="w-1.5 h-1.5 bg-[#475569] rounded-full"></span>
+          Material MOQ
+        </h4>
+        <div className="pl-4">
+          <SearchableSelect
+            label=""
+            value={data.materialMOQ}
+            options={['meter', 'kg']}
+            onChange={(value) => handleChange('materialMOQ', value)}
+            placeholder="Select unit..."
+          />
+        </div>
+      </div>
+
+      {/* 第三部分：Material MCQ */}
+      <div>
+        <h4 className="text-sm font-semibold text-[#334155] mb-4 flex items-center gap-2">
+          <span className="w-1.5 h-1.5 bg-[#475569] rounded-full"></span>
+          Material MCQ
+        </h4>
+        <div className="pl-4">
+          <SearchableSelect
+            label=""
+            value={data.materialMCQ}
+            options={['meter', 'kg']}
+            onChange={(value) => handleChange('materialMCQ', value)}
+            placeholder="Select unit..."
+          />
+        </div>
+      </div>
+
+      {/* 第四部分：Material Lead-time */}
+      <div>
+        <h4 className="text-sm font-semibold text-[#334155] mb-4 flex items-center gap-2">
+          <span className="w-1.5 h-1.5 bg-[#475569] rounded-full"></span>
+          Material Lead-time
+        </h4>
+        <div className="space-y-6 pl-4">
+          {/* 第 1 点：Sample Yardage development time */}
+          <div className="space-y-2">
+            <label className="block text-sm font-medium text-[#334155]">
+              Sample Yardage development time
+            </label>
+            <div className="flex items-center gap-2 w-full md:w-1/2">
+              <input
+                type="text"
+                inputMode="numeric"
+                value={data.sampleYardageDevTime}
+                onChange={(e) => {
+                  const val = e.target.value.replace(/[^0-9]/g, '');
+                  handleChange('sampleYardageDevTime', val);
+                }}
+                placeholder="Enter number..."
+                className="flex-1 px-3 py-2 border border-[#e2e8f0] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#475569] focus:border-transparent"
+              />
+              <span className="text-sm text-[#64748b]">day</span>
+            </div>
+          </div>
+
+          {/* 第 2 点：Bulk production (based on 3000M/color) */}
+          <div className="space-y-2">
+            <label className="block text-sm font-medium text-[#334155]">
+              Bulk production ( based on 3000M/color )
+            </label>
+            <div className="flex items-center gap-2 w-full md:w-1/2">
+              <input
+                type="text"
+                inputMode="numeric"
+                value={data.bulkProductionTime}
+                onChange={(e) => {
+                  const val = e.target.value.replace(/[^0-9]/g, '');
+                  handleChange('bulkProductionTime', val);
+                }}
+                placeholder="Enter number..."
+                className="flex-1 px-3 py-2 border border-[#e2e8f0] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#475569] focus:border-transparent"
+              />
+              <span className="text-sm text-[#64748b]">day</span>
             </div>
           </div>
         </div>
