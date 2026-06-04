@@ -29,7 +29,6 @@ const MODULES = [
   { id: 'supplyChain', title: '2. Supply Chain', description: 'Material Supplier and production locations' },
   { id: 'costLeadtime', title: '3. Cost and Lead-time', description: 'Material Cost, MOQ, MCQ, production lead-time' },
   { id: 'materialTest', title: '4. Material Test', description: 'Enable supplier to attach the test report' },
-  { id: 'materialStatus', title: '5. Material Status', description: 'Material Status, Active, Approval, Test Pending' },
 ];
 
 export function CreateMaterial() {
@@ -343,36 +342,6 @@ export function CreateMaterial() {
                   data={materialTestData}
                   onChange={setMaterialTestData}
                 />
-              </div>
-            )}
-          </div>
-
-          {/* Module 5: Material Status (Placeholder) */}
-          <div className="bg-white rounded-xl shadow-sm border border-[#e2e8f0] overflow-hidden">
-            <button
-              type="button"
-              onClick={() => toggleModule('materialStatus')}
-              className="w-full px-6 py-4 flex items-center justify-between bg-gradient-to-r from-[#334155] to-[#64748b] text-white"
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center text-sm font-bold">
-                  5
-                </div>
-                <div className="text-left">
-                  <h3 className="font-semibold">Material Status</h3>
-                  <p className="text-sm text-white/70">Material Status, Active, Approval, Test Pending</p>
-                </div>
-              </div>
-              {expandedModules.includes('materialStatus') ? (
-                <ChevronUp className="w-5 h-5" />
-              ) : (
-                <ChevronDown className="w-5 h-5" />
-              )}
-            </button>
-
-            {expandedModules.includes('materialStatus') && (
-              <div className="p-6">
-                <p className="text-[#64748b] text-center py-8">Material Status module coming soon...</p>
               </div>
             )}
           </div>
