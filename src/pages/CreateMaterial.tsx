@@ -10,8 +10,8 @@ import { Material } from '../types';
 import { stockStatusOptions, statusOptions } from '../data/mockData';
 import { defaultMaterialSpecification } from '../data/materialSpecificationData';
 import { defaultSupplyChainData } from '../data/supplyChainData';
-import { CostLeadTimeForm, CostLeadTimeData } from '../components/material/CostLeadTimeForm';
-import { defaultCostLeadTimeData } from '../data/costLeadTimeData';
+import { CostLeadTimeForm } from '../components/material/CostLeadTimeForm';
+import { CostLeadTimeData, defaultCostLeadTimeData } from '../data/costLeadTimeData';
 import { MaterialTestForm, MaterialTestData } from '../components/material/MaterialTestForm';
 import { defaultMaterialTestData } from '../data/materialTestData';
 import {

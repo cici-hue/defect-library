@@ -1,14 +1,7 @@
 import React, { useState } from 'react';
 import { Calendar } from 'lucide-react';
 import { SearchableSelect } from '../ui/SearchableSelect';
-
-export interface CostLeadTimeData {
-  usdPerMCuttable: string;
-  usdCalculated60: string;
-  rmbPerMCuttable: string;
-  rmbCalculated60: string;
-  costValidationDate: string;
-}
+import { CostLeadTimeData } from '../../data/costLeadTimeData';
 
 interface CostLeadTimeFormProps {
   data: CostLeadTimeData;
