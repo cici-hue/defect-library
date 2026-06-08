@@ -1,4 +1,4 @@
-﻿import { Material, Supplier, Category, AuditLog, DashboardStats } from '../types';
+import { Material, Supplier, Category, AuditLog, DashboardStats } from '../types';
 
 // Generate unique IDs
 export const generateId = () => Math.random().toString(36).substr(2, 9);
@@ -78,13 +78,7 @@ export const countries = [
   'Ethiopia', 'Kenya', 'Madagascar', 'Brazil', 'Colombia', 'Peru'
 ];
 
-// Stock status options
-export const stockStatusOptions = [
-  { value: 'in_stock', label: 'In Stock', color: 'green' },
-  { value: 'low_stock', label: 'Low Stock', color: 'yellow' },
-  { value: 'out_of_stock', label: 'Out of Stock', color: 'red' },
-  { value: 'discontinued', label: 'Discontinued', color: 'gray' },
-];
+// Stock status options removed (no longer used)
 
 // Status options
 export const statusOptions = [
@@ -226,7 +220,7 @@ export const mockMaterials: Material[] = [
     price: 3.5,
     minOrder: 1000,
     leadTime: 15,
-    stockStatus: 'in_stock',
+
     status: 'approved',
     images: ['https://images.unsplash.com/photo-1558171813-4c088753af8f?w=400'],
     documents: [],
@@ -291,7 +285,7 @@ export const mockMaterials: Material[] = [
     price: 5.2,
     minOrder: 500,
     leadTime: 20,
-    stockStatus: 'in_stock',
+
     status: 'approved',
     images: ['https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=400'],
     documents: [],
@@ -356,7 +350,7 @@ export const mockMaterials: Material[] = [
     price: 6.8,
     minOrder: 300,
     leadTime: 25,
-    stockStatus: 'low_stock',
+
     status: 'approved',
     images: ['https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400'],
     documents: [],
@@ -421,7 +415,7 @@ export const mockMaterials: Material[] = [
     price: 28.0,
     minOrder: 100,
     leadTime: 30,
-    stockStatus: 'in_stock',
+
     status: 'approved',
     images: ['https://images.unsplash.com/photo-1586075010923-2dd4570fb338?w=400'],
     documents: [],
@@ -486,7 +480,7 @@ export const mockMaterials: Material[] = [
     price: 18.5,
     minOrder: 200,
     leadTime: 25,
-    stockStatus: 'in_stock',
+
     status: 'approved',
     images: ['https://images.unsplash.com/photo-1558171814-64ae9eb27f66?w=400'],
     documents: [],
@@ -551,7 +545,7 @@ export const mockMaterials: Material[] = [
     price: 2.1,
     minOrder: 2000,
     leadTime: 10,
-    stockStatus: 'in_stock',
+
     status: 'approved',
     images: ['https://images.unsplash.com/photo-1558171813-4c088753af8f?w=400'],
     documents: [],
@@ -616,7 +610,7 @@ export const mockMaterials: Material[] = [
     price: 8.5,
     minOrder: 500,
     leadTime: 20,
-    stockStatus: 'in_stock',
+
     status: 'pending',
     images: ['https://images.unsplash.com/photo-1542272617-08f086302542?w=400'],
     documents: [],
@@ -681,7 +675,7 @@ export const mockMaterials: Material[] = [
     price: 4.8,
     minOrder: 800,
     leadTime: 18,
-    stockStatus: 'in_stock',
+
     status: 'approved',
     images: ['https://images.unsplash.com/photo-1558171813-4c088753af8f?w=400'],
     documents: [],
@@ -746,7 +740,7 @@ export const mockMaterials: Material[] = [
     price: 2.8,
     minOrder: 1500,
     leadTime: 12,
-    stockStatus: 'in_stock',
+
     status: 'approved',
     images: ['https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=400'],
     documents: [],
@@ -811,7 +805,7 @@ export const mockMaterials: Material[] = [
     price: 1.9,
     minOrder: 2000,
     leadTime: 10,
-    stockStatus: 'low_stock',
+
     status: 'approved',
     images: ['https://images.unsplash.com/photo-1558171813-4c088753af8f?w=400'],
     documents: [],
@@ -876,7 +870,7 @@ export const mockMaterials: Material[] = [
     price: 3.2,
     minOrder: 1000,
     leadTime: 14,
-    stockStatus: 'in_stock',
+
     status: 'approved',
     images: ['https://images.unsplash.com/photo-1558171813-4c088753af8f?w=400'],
     documents: [],
@@ -941,7 +935,7 @@ export const mockMaterials: Material[] = [
     price: 3.8,
     minOrder: 1200,
     leadTime: 16,
-    stockStatus: 'out_of_stock',
+
     status: 'pending',
     images: ['https://images.unsplash.com/photo-1558171813-4c088753af8f?w=400'],
     documents: [],
@@ -1039,7 +1033,7 @@ export const mockAuditLogs: AuditLog[] = [
     userId: 'user-001',
     userName: 'Admin',
     changes: {
-      stockStatus: { old: 'out_of_stock', new: 'in_stock' },
+
     },
     timestamp: '2024-03-15T14:20:00Z',
   },
@@ -1074,7 +1068,7 @@ export const mockAuditLogs: AuditLog[] = [
     userId: 'user-001',
     userName: 'Admin',
     changes: {
-      stockStatus: { old: 'in_stock', new: 'low_stock' },
+
     },
     timestamp: '2024-03-12T16:45:00Z',
   },

@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { Header } from '../components/layout/Header';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
-import { SearchInput, Select, Checkbox } from '../components/ui/FormElements';
+import { SearchInput, Checkbox } from '../components/ui/FormElements';
 import { useApp } from '../context/AppContext';
 import { Material } from '../types';
 import { ExcelImportModal } from '../components/material/ExcelImportModal';
@@ -15,16 +15,12 @@ import {
   ChevronDown,
   X,
   ArrowUpDown,
-  CheckCircle,
-  AlertTriangle,
-  XCircle,
-  MinusCircle,
   Edit,
-  Trash2,
   Eye,
-  MoreVertical,
+  Trash2,
   Upload,
   Download,
+  Package,
 } from 'lucide-react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import * as XLSX from 'xlsx';
@@ -32,7 +28,7 @@ import * as XLSX from 'xlsx';
 export function MaterialLibrary() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const { materials, suppliers, addMaterial } = useApp();
+  const { materials, addMaterial } = useApp();
 
   // View state
   const [viewMode, setViewMode] = useState<'grid' | 'table'>('grid');
@@ -44,12 +40,11 @@ export function MaterialLibrary() {
   // Import modal state
   const [showImportModal, setShowImportModal] = useState(false);
 
-  // Filter state
+  // Filter state (stockStatus removed)
   const [filters, setFilters] = useState({
     materialType: [] as string[],
     color: [] as string[],
     supplier: [] as string[],
-    stockStatus: [] as string[],
     status: [] as string[],
   });
 
@@ -57,7 +52,7 @@ export function MaterialLibrary() {
   const uniqueTypes = [...new Set(materials.map(m => m.materialType))];
   const uniqueColors = [...new Set(materials.map(m => m.color))];
   const uniqueSuppliers = [...new Set(materials.map(m => m.supplier))];
-  const uniqueStatuses = [...new Set(materials.map(m => m.stockStatus))];
+  const uniqueStatuses = [...new Set(materials.map(m => m.status))];
 
   // Filter and sort materials
   const filteredMaterials = useMemo(() => {
@@ -89,11 +84,6 @@ export function MaterialLibrary() {
     // Supplier filter
     if (filters.supplier.length > 0) {
       result = result.filter(m => filters.supplier.includes(m.supplier));
-    }
-
-    // Stock status filter
-    if (filters.stockStatus.length > 0) {
-      result = result.filter(m => filters.stockStatus.includes(m.stockStatus));
     }
 
     // Status filter
@@ -131,7 +121,6 @@ export function MaterialLibrary() {
       materialType: [],
       color: [],
       supplier: [],
-      stockStatus: [],
       status: [],
     });
     setSearchQuery('');
@@ -141,7 +130,6 @@ export function MaterialLibrary() {
     filters.materialType.length +
     filters.color.length +
     filters.supplier.length +
-    filters.stockStatus.length +
     filters.status.length;
 
   const handleSort = (field: keyof Material) => {
@@ -176,7 +164,6 @@ export function MaterialLibrary() {
         price: 0,
         minOrder: 0,
         leadTime: 0,
-        stockStatus: 'in_stock',
         status: 'pending',
         images: [],
         documents: [],
@@ -199,10 +186,6 @@ export function MaterialLibrary() {
       'Weight (GSM)': m.weight,
       'Width (inch)': m.width,
       'Color': m.color,
-      'Price': m.price,
-      'Min Order': m.minOrder,
-      'Lead Time (days)': m.leadTime,
-      'Stock Status': m.stockStatus,
       'Status': m.status,
       'Created At': new Date(m.createdAt).toLocaleDateString(),
       'Updated At': new Date(m.updatedAt).toLocaleDateString()
@@ -288,7 +271,7 @@ export function MaterialLibrary() {
             </div>
           </div>
 
-          {/* Filter Panel */}
+          {/* Filter Panel (Stock Status filter removed) */}
           {showFilters && (
             <div className="mt-4 pt-4 border-t border-[#e2e8f0]">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -316,12 +299,12 @@ export function MaterialLibrary() {
                   onToggle={(val) => toggleFilter('supplier', val)}
                 />
 
-                {/* Stock Status */}
+                {/* Status */}
                 <FilterSection
-                  title="Stock Status"
+                  title="Approval"
                   options={uniqueStatuses}
-                  selected={filters.stockStatus}
-                  onToggle={(val) => toggleFilter('stockStatus', val)}
+                  selected={filters.status}
+                  onToggle={(val) => toggleFilter('status', val)}
                 />
               </div>
 
@@ -359,7 +342,7 @@ export function MaterialLibrary() {
           </div>
         )}
 
-        {/* Table View */}
+        {/* Table View (Stock column removed) */}
         {viewMode === 'table' && (
           <Card className="!p-0 overflow-hidden">
             <div className="overflow-x-auto">
@@ -402,9 +385,6 @@ export function MaterialLibrary() {
                       onSort={handleSort}
                     />
                     <th className="text-left py-3 px-4 text-xs font-bold text-[#64748b] uppercase tracking-wide">
-                      Stock
-                    </th>
-                    <th className="text-left py-3 px-4 text-xs font-bold text-[#64748b] uppercase tracking-wide">
                       Actions
                     </th>
                   </tr>
@@ -426,9 +406,6 @@ export function MaterialLibrary() {
                       <td className="py-3 px-4 text-sm text-[#64748b]">{material.materialType}</td>
                       <td className="py-3 px-4 text-sm text-[#64748b]">{material.supplier}</td>
                       <td className="py-3 px-4 text-sm text-[#64748b]">{material.weight} GSM</td>
-                      <td className="py-3 px-4">
-                        <StockStatusBadge status={material.stockStatus} />
-                      </td>
                       <td className="py-3 px-4" onClick={(e) => e.stopPropagation()}>
                         <div className="flex items-center gap-1">
                           <button
@@ -473,9 +450,6 @@ export function MaterialLibrary() {
     </div>
   );
 }
-
-// Import icons
-import { Package } from 'lucide-react';
 
 // Filter Section Component
 function FilterSection({
@@ -557,7 +531,7 @@ function SortableHeader({
   );
 }
 
-// Material Card Component
+// Material Card Component (Stock Status badge removed)
 function MaterialCard({
   material,
   onClick,
@@ -585,9 +559,6 @@ function MaterialCard({
             <Package className="w-12 h-12 text-[#94a3b8]" />
           </div>
         )}
-        <div className="absolute top-2 right-2">
-          <StockStatusBadge status={material.stockStatus} />
-        </div>
       </div>
 
       {/* Content */}
@@ -603,8 +574,7 @@ function MaterialCard({
           <p>{material.weight} GSM | {material.color}</p>
         </div>
 
-        <div className="mt-3 pt-3 border-t border-[#e2e8f0] flex items-center justify-between">
-          <p className="text-sm font-bold text-[#3b82f6]">${material.price.toFixed(2)}</p>
+        <div className="mt-3 pt-3 border-t border-[#e2e8f0] flex items-center justify-end">
           <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
             <button
               onClick={onEdit}
@@ -616,24 +586,5 @@ function MaterialCard({
         </div>
       </div>
     </div>
-  );
-}
-
-// Stock Status Badge
-function StockStatusBadge({ status }: { status: string }) {
-  const config: Record<string, { bg: string; text: string; icon: React.ReactNode }> = {
-    in_stock: { bg: 'bg-[#22c55e]/10', text: 'text-[#22c55e]', icon: <CheckCircle className="w-3 h-3" /> },
-    low_stock: { bg: 'bg-[#f59e0b]/10', text: 'text-[#f59e0b]', icon: <AlertTriangle className="w-3 h-3" /> },
-    out_of_stock: { bg: 'bg-[#ef4444]/10', text: 'text-[#ef4444]', icon: <XCircle className="w-3 h-3" /> },
-    discontinued: { bg: 'bg-[#94a3b8]/10', text: 'text-[#94a3b8]', icon: <MinusCircle className="w-3 h-3" /> },
-  };
-
-  const { bg, text, icon } = config[status] || config.in_stock;
-
-  return (
-    <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs ${bg} ${text}`}>
-      {icon}
-      {status.replace('_', ' ').replace(/\b\w/g, (l) => l.toUpperCase())}
-    </span>
   );
 }

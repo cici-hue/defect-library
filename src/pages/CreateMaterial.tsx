@@ -7,7 +7,6 @@ import { MaterialSpecificationForm, MaterialSpecificationData } from '../compone
 import { SupplyChainForm, SupplyChainData } from '../components/material/SupplyChainForm';
 import { useApp } from '../context/AppContext';
 import { Material } from '../types';
-import { stockStatusOptions, statusOptions } from '../data/mockData';
 import { defaultMaterialSpecification } from '../data/materialSpecificationData';
 import { defaultSupplyChainData } from '../data/supplyChainData';
 import { CostLeadTimeForm } from '../components/material/CostLeadTimeForm';
@@ -149,7 +148,6 @@ export function CreateMaterial() {
       price: 0,
       minOrder: 0,
       leadTime: 0,
-      stockStatus: 'in_stock',
       status: 'pending',
       images: imageUrls,
       documents: [],

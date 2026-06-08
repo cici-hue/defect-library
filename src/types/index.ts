@@ -44,7 +44,6 @@ export interface Material {
   price: number;
   minOrder: number;
   leadTime: number;
-  stockStatus: 'in_stock' | 'low_stock' | 'out_of_stock' | 'discontinued';
   status: 'pending' | 'approved' | 'archived';
   images: string[];
   documents: Document[];
@@ -140,7 +139,6 @@ export interface MaterialFilters {
   supplier: string[];
   priceRange: [number, number];
   weightRange: [number, number];
-  stockStatus: string[];
   status: string[];
 }
 

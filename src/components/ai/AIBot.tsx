@@ -112,11 +112,11 @@ export const AIBot: React.FC = () => {
       };
     }
 
-    // Search by stock status
+    // Search by status
     if (lowerQuery.includes('in stock') || lowerQuery.includes('available')) {
-      const results = allMaterials.filter(m => m.stockStatus === 'in_stock');
+      const results = allMaterials.filter(m => m.status === 'approved');
       return {
-        content: `I found ${results.length} materials currently in stock:`,
+        content: `I found ${results.length} approved materials:`,
         materials: results.slice(0, 5)
       };
     }

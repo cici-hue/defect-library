@@ -42,7 +42,6 @@ const defaultFilters: MaterialFilters = {
   supplier: [],
   priceRange: [0, 100],
   weightRange: [0, 500],
-  stockStatus: [],
   status: [],
 };
 
