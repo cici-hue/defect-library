@@ -13,16 +13,13 @@ import {
   CheckCircle,
   AlertTriangle,
   XCircle,
-  MinusCircle,
   Package,
   Building2,
-  MapPin,
   Calendar,
   User,
   Tag,
   FileText,
   Image as ImageIcon,
-  ChevronRight,
   Clock,
   Layers,
   Ruler,
@@ -32,16 +29,19 @@ import {
   FileCheck,
   Leaf,
   Info,
+  DollarSign,
+  Clock4,
+  FlaskConical,
+  Beaker,
 } from 'lucide-react';
 
 export function MaterialDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { getMaterialById, getSupplierById, deleteMaterial } = useApp();
+  const { getMaterialById, deleteMaterial } = useApp();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const material = id ? getMaterialById(id) : undefined;
-  const supplier = material ? getSupplierById(material.supplierId) : undefined;
 
   if (!material) {
     return (
@@ -139,8 +139,8 @@ export function MaterialDetail() {
             {/* Quick Info */}
             <Card title="Quick Info" className="mt-6">
               <div className="space-y-3">
-                <QuickInfoRow label="Status" value={<StockStatusBadge status={material.stockStatus} />} />
                 <QuickInfoRow label="Approval" value={<ApprovalBadge status={material.status} />} />
+                <QuickInfoRow label="Test Status" value={<TestStatusBadge status={material.testStatus} />} />
                 <QuickInfoRow label="Created" value={material.createdAt} />
                 <QuickInfoRow label="Updated" value={material.updatedAt} />
                 <QuickInfoRow label="Created By" value={material.createdBy} />
@@ -168,8 +168,8 @@ export function MaterialDetail() {
           {/* Right Column - Details */}
           <div className="lg:col-span-2 space-y-6">
             {/* Module 1: Material Specification */}
-            <Card 
-              title="Module 1: Material Specification" 
+            <Card
+              title="Module 1: Material Specification"
               subtitle="Material Category and parameter specification"
               icon={<Layers className="w-5 h-5" />}
             >
@@ -206,7 +206,7 @@ export function MaterialDetail() {
                     <Ruler className="w-4 h-4" />
                     Dimensions
                   </h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <DetailItem label="Finished Weight" value={`${material.finishedWeight} GSM`} />
                     <DetailItem label="Material Width" value={`${material.materialWidth} inch`} />
                     <DetailItem label="Cuttable Width" value={material.cuttableWidth ? `${material.cuttableWidth} inch` : '-'} />
@@ -220,12 +220,12 @@ export function MaterialDetail() {
                     Finishes & Functions
                   </h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <DetailItem 
-                      label="Material Finishes" 
-                      value={material.materialFinishes && material.materialFinishes.length > 0 
-                        ? material.materialFinishes.join(', ') 
+                    <DetailItem
+                      label="Material Finishes"
+                      value={material.materialFinishes && material.materialFinishes.length > 0
+                        ? material.materialFinishes.join(', ')
                         : '-'
-                      } 
+                      }
                     />
                     <DetailItem label="Material Function" value={material.materialFunction || '-'} />
                     <DetailItem label="Sustainable" value={material.sustainable || '-'} />
@@ -244,8 +244,8 @@ export function MaterialDetail() {
             </Card>
 
             {/* Module 2: Supply Chain */}
-            <Card 
-              title="Module 2: Supply Chain" 
+            <Card
+              title="Module 2: Supply Chain"
               subtitle="Material Supplier and production locations"
               icon={<Factory className="w-5 h-5" />}
             >
@@ -280,70 +280,146 @@ export function MaterialDetail() {
               </div>
             </Card>
 
-            {/* Legacy Information (for backward compatibility) */}
-            <Card title="Legacy Information" className="opacity-75">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <DetailItem label="Original Code" value={material.code} />
-                <DetailItem label="Original Type" value={material.materialType} />
-                <DetailItem label="Original Supplier" value={material.supplier} />
-                <DetailItem label="Original Origin" value={material.origin} />
-                <DetailItem label="Original Weight" value={`${material.weight} GSM`} />
-                <DetailItem label="Original Width" value={`${material.width} cm`} />
-                <DetailItem label="Composition" value={material.composition} />
-                <DetailItem label="Color" value={material.color} />
-                <DetailItem label="Unit Price" value={`$${material.price.toFixed(2)}`} highlight />
-                <DetailItem label="Min. Order" value={`${material.minOrder} units`} />
-                <DetailItem label="Lead Time" value={`${material.leadTime} days`} />
-                <DetailItem label="Stock Status" value={<StockStatusBadge status={material.stockStatus} />} />
+            {/* Module 3: Cost and Lead-time */}
+            <Card
+              title="Module 3: Cost, MOQ, MCQ, Production Lead-time"
+              subtitle="Material cost, minimum order quantity, and lead-time"
+              icon={<DollarSign className="w-5 h-5" />}
+            >
+              <div className="space-y-6">
+                {/* Material Cost */}
+                <div>
+                  <h4 className="text-sm font-medium text-[#334155] mb-3 flex items-center gap-2">
+                    <DollarSign className="w-4 h-4" />
+                    Material Cost
+                  </h4>
+                  <div className="space-y-4">
+                    {/* USD */}
+                    <div className="bg-[#f8fafc] p-4 rounded-lg">
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-2">
+                        <DetailItem
+                          label="USD / M based on cuttable width, FOB ex-mill cost"
+                          value={material.usdPerMCuttable ? `$${material.usdPerMCuttable}` : '-'}
+                        />
+                      </div>
+                      <p className="text-xs text-[#94a3b8] italic">
+                        system automatic to calculate the price based on 60" ( for price comparison purpose only ) :
+                        <span className="ml-2 font-semibold text-[#3b82f6]">
+                          {material.usdPerMCuttable && material.cuttableWidth
+                            ? `$${(parseFloat(material.usdPerMCuttable) * material.cuttableWidth / 60).toFixed(2)}`
+                            : '-'}
+                        </span>
+                      </p>
+                    </div>
+                    {/* RMB */}
+                    <div className="bg-[#f8fafc] p-4 rounded-lg">
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-2">
+                        <DetailItem
+                          label="RMB / M based on cuttable width, VAT ex-mill cost"
+                          value={material.rmbPerMCuttable ? `¥${material.rmbPerMCuttable}` : '-'}
+                        />
+                      </div>
+                      <p className="text-xs text-[#94a3b8] italic">
+                        system automatic to calculate the price based on 60" ( for price comparison purpose only ) :
+                        <span className="ml-2 font-semibold text-[#3b82f6]">
+                          {material.rmbPerMCuttable && material.cuttableWidth
+                            ? `¥${(parseFloat(material.rmbPerMCuttable) * material.cuttableWidth / 60).toFixed(2)}`
+                            : '-'}
+                        </span>
+                      </p>
+                    </div>
+                    {/* Cost Validation Date */}
+                    <DetailItem
+                      label="Cost Validation date"
+                      value={material.costValidationDate || '-'}
+                    />
+                  </div>
+                </div>
+
+                {/* Material MOQ & MCQ */}
+                <div className="pt-4 border-t border-[#f1f5f9]">
+                  <h4 className="text-sm font-medium text-[#334155] mb-3 flex items-center gap-2">
+                    <Package className="w-4 h-4" />
+                    Material MOQ & MCQ
+                  </h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <DetailItem label="Material MOQ" value={material.materialMOQ || '-'} />
+                    <DetailItem label="Material MCQ" value={material.materialMCQ || '-'} />
+                  </div>
+                </div>
+
+                {/* Material Lead-time */}
+                <div className="pt-4 border-t border-[#f1f5f9]">
+                  <h4 className="text-sm font-medium text-[#334155] mb-3 flex items-center gap-2">
+                    <Clock4 className="w-4 h-4" />
+                    Material Lead-time
+                  </h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <DetailItem
+                      label="Sample Yardage development time"
+                      value={material.sampleYardageDevTime ? `${material.sampleYardageDevTime} day${material.sampleYardageDevTime === '1' ? '' : 's'}` : '-'}
+                    />
+                    <DetailItem
+                      label="Bulk production ( based on 3000M/color )"
+                      value={material.bulkProductionTime ? `${material.bulkProductionTime} day${material.bulkProductionTime === '1' ? '' : 's'}` : '-'}
+                    />
+                  </div>
+                </div>
               </div>
             </Card>
 
-            {/* Test Reports */}
-            {material.testReports && material.testReports.length > 0 && (
-              <Card title="Test Reports">
-                <div className="space-y-2">
-                  {material.testReports.map((report) => (
-                    <div
-                      key={report.id}
-                      className="flex items-center justify-between p-3 bg-[#f0f4f8] rounded-lg"
-                    >
-                      <div className="flex items-center gap-3">
-                        <FileText className="w-5 h-5 text-[#64748b]" />
-                        <div>
-                          <span className="text-sm text-[#0f172a] block">{report.name}</span>
-                          <span className="text-xs text-[#64748b]">{report.type}</span>
+            {/* Module 4: Material Test */}
+            <Card
+              title="Module 4: Material Test"
+              subtitle="Enable supplier to attach the test report"
+              icon={<FlaskConical className="w-5 h-5" />}
+            >
+              <div className="space-y-6">
+                {/* Test Report Files */}
+                <div>
+                  <h4 className="text-sm font-medium text-[#334155] mb-3 flex items-center gap-2">
+                    <FileText className="w-4 h-4" />
+                    Fabric Test Report
+                  </h4>
+                  {material.testReportFiles && material.testReportFiles.length > 0 ? (
+                    <div className="space-y-2">
+                      {material.testReportFiles.map((report) => (
+                        <div
+                          key={report.id}
+                          className="flex items-center justify-between p-3 bg-[#f0f4f8] rounded-lg"
+                        >
+                          <div className="flex items-center gap-3">
+                            <FileText className="w-5 h-5 text-[#64748b]" />
+                            <div>
+                              <span className="text-sm text-[#0f172a] block">{report.name}</span>
+                              <span className="text-xs text-[#64748b]">{report.type}</span>
+                            </div>
+                          </div>
+                          <Button variant="ghost" size="sm">
+                            <Download className="w-4 h-4" />
+                          </Button>
                         </div>
-                      </div>
-                      <Button variant="ghost" size="sm">
-                        <Download className="w-4 h-4" />
-                      </Button>
+                      ))}
                     </div>
-                  ))}
+                  ) : (
+                    <p className="text-sm text-[#94a3b8] bg-[#f8fafc] p-3 rounded-lg italic">
+                      No test report uploaded
+                    </p>
+                  )}
                 </div>
-              </Card>
-            )}
 
-            {/* Documents */}
-            {material.documents.length > 0 && (
-              <Card title="Documents">
-                <div className="space-y-2">
-                  {material.documents.map((doc) => (
-                    <div
-                      key={doc.id}
-                      className="flex items-center justify-between p-3 bg-[#f0f4f8] rounded-lg"
-                    >
-                      <div className="flex items-center gap-3">
-                        <FileText className="w-5 h-5 text-[#64748b]" />
-                        <span className="text-sm text-[#0f172a]">{doc.name}</span>
-                      </div>
-                      <Button variant="ghost" size="sm">
-                        <Download className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  ))}
+                {/* Test Status */}
+                <div className="pt-4 border-t border-[#f1f5f9]">
+                  <h4 className="text-sm font-medium text-[#334155] mb-3 flex items-center gap-2">
+                    <Beaker className="w-4 h-4" />
+                    Material Test Status
+                  </h4>
+                  <div>
+                    <TestStatusBadgeLarge status={material.testStatus} />
+                  </div>
                 </div>
-              </Card>
-            )}
+              </div>
+            </Card>
 
             {/* Remarks */}
             {material.remarks && (
@@ -422,30 +498,12 @@ function QuickInfoRow({ label, value }: { label: string; value: React.ReactNode 
   );
 }
 
-// Status Badges
-function StockStatusBadge({ status }: { status: string }) {
-  const config: Record<string, { bg: string; text: string; icon: React.ReactNode }> = {
-    in_stock: { bg: 'bg-[#22c55e]/10', text: 'text-[#22c55e]', icon: <CheckCircle className="w-3 h-3" /> },
-    low_stock: { bg: 'bg-[#f59e0b]/10', text: 'text-[#f59e0b]', icon: <AlertTriangle className="w-3 h-3" /> },
-    out_of_stock: { bg: 'bg-[#ef4444]/10', text: 'text-[#ef4444]', icon: <XCircle className="w-3 h-3" /> },
-    discontinued: { bg: 'bg-[#94a3b8]/10', text: 'text-[#94a3b8]', icon: <MinusCircle className="w-3 h-3" /> },
-  };
-
-  const { bg, text, icon } = config[status] || config.in_stock;
-
-  return (
-    <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs ${bg} ${text}`}>
-      {icon}
-      {status.replace('_', ' ').replace(/\b\w/g, (l) => l.toUpperCase())}
-    </span>
-  );
-}
-
+// Approval Badge
 function ApprovalBadge({ status }: { status: string }) {
   const config: Record<string, { bg: string; text: string; icon: React.ReactNode }> = {
     pending: { bg: 'bg-[#f59e0b]/10', text: 'text-[#f59e0b]', icon: <Clock className="w-3 h-3" /> },
     approved: { bg: 'bg-[#22c55e]/10', text: 'text-[#22c55e]', icon: <CheckCircle className="w-3 h-3" /> },
-    archived: { bg: 'bg-[#94a3b8]/10', text: 'text-[#94a3b8]', icon: <MinusCircle className="w-3 h-3" /> },
+    archived: { bg: 'bg-[#94a3b8]/10', text: 'text-[#94a3b8]', icon: <Package className="w-3 h-3" /> },
   };
 
   const { bg, text, icon } = config[status] || config.pending;
@@ -454,6 +512,40 @@ function ApprovalBadge({ status }: { status: string }) {
     <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs ${bg} ${text}`}>
       {icon}
       {status.charAt(0).toUpperCase() + status.slice(1)}
+    </span>
+  );
+}
+
+// Test Status Badge (small, used in Quick Info)
+function TestStatusBadge({ status }: { status?: string }) {
+  if (!status) {
+    return <span className="text-sm text-[#94a3b8]">N/A</span>;
+  }
+  return <TestStatusBadgeLarge status={status} />;
+}
+
+// Test Status Badge Large (used in Module 4)
+function TestStatusBadgeLarge({ status }: { status?: string }) {
+  const config: Record<string, { bg: string; text: string; icon: React.ReactNode }> = {
+    'Pass': { bg: 'bg-[#22c55e]/10', text: 'text-[#22c55e]', icon: <CheckCircle className="w-4 h-4" /> },
+    'Conditional Tolerance': { bg: 'bg-[#f59e0b]/10', text: 'text-[#f59e0b]', icon: <AlertTriangle className="w-4 h-4" /> },
+    'Fail': { bg: 'bg-[#ef4444]/10', text: 'text-[#ef4444]', icon: <XCircle className="w-4 h-4" /> },
+  };
+
+  if (!status) {
+    return (
+      <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm bg-[#94a3b8]/10 text-[#94a3b8]">
+        N/A
+      </span>
+    );
+  }
+
+  const { bg, text, icon } = config[status] || config['Pass'];
+
+  return (
+    <span className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm ${bg} ${text}`}>
+      {icon}
+      {status}
     </span>
   );
 }
