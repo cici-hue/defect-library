@@ -6,17 +6,18 @@ import { useApp } from '../context/AppContext';
 import {
   Package,
   Clock,
-  AlertTriangle,
+  CheckCircle,
   TrendingUp,
   Search,
   Sparkles,
   ArrowRight,
-  CheckCircle,
   XCircle,
-  MinusCircle,
+  AlertTriangle,
   PlusCircle,
   Building2,
   Tags,
+  Beaker,
+  Ruler,
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -32,20 +33,18 @@ export function Dashboard() {
     'Find lightweight cotton fabrics under 150 GSM',
     'Show all silk materials from China',
     'Materials suitable for summer shirts',
-    'Low stock items that need restocking',
-    'Blue colored fabrics with low MOQ',
+    'Materials with Pass test status',
+    'Fabrics with low MOQ',
   ];
 
-  // Recent materials
+  // Recent materials (most recently updated)
   const recentMaterials = [...materials]
     .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
     .slice(0, 5);
 
-  // Materials by type for display
   const materialsByType = Object.entries(stats.materialsByType);
-
-  // Stock status data
-  const stockStatusData = Object.entries(stats.stockStatus);
+  const materialsByTestStatus = Object.entries(stats.materialsByTestStatus);
+  const materialsByMOQ = Object.entries(stats.materialsByMOQ);
 
   const handleSearch = () => {
     if (searchQuery.trim()) {
@@ -130,9 +129,17 @@ export function Dashboard() {
             title="Total Materials"
             value={stats.totalMaterials}
             icon={<Package className="w-6 h-6" />}
-            change="+5 this week"
-            changeType="positive"
+            change="In library"
+            changeType="neutral"
             color="blue"
+          />
+          <StatCard
+            title="Approved"
+            value={stats.approvedMaterials}
+            icon={<CheckCircle className="w-6 h-6" />}
+            change="Available to use"
+            changeType="positive"
+            color="green"
           />
           <StatCard
             title="Pending Review"
@@ -143,79 +150,142 @@ export function Dashboard() {
             color="yellow"
           />
           <StatCard
-            title="Low Stock"
-            value={stats.lowStock}
-            icon={<AlertTriangle className="w-6 h-6" />}
-            change={stats.lowStock > 0 ? 'Items low' : 'Stock OK'}
-            changeType={stats.lowStock > 0 ? 'negative' : 'positive'}
-            color="red"
-          />
-          <StatCard
             title="Recent Updates"
             value={stats.recentUpdates}
             icon={<TrendingUp className="w-6 h-6" />}
-            change="Last 7 days"
+            change="Last 30 days"
             changeType="neutral"
-            color="green"
+            color="blue"
           />
         </div>
 
-        {/* Charts Row - Simple CSS-based bars */}
+        {/* Charts Row */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Materials by Type */}
-          <Card title="Materials by Type">
+          {/* Materials by Top Category */}
+          <Card title="Materials by Top Category">
             <div className="space-y-3">
-              {materialsByType.map(([type, count], index) => {
-                const maxCount = Math.max(...materialsByType.map(([, c]) => c));
-                const percentage = (count / maxCount) * 100;
-                const colors = ['#3b82f6', '#22c55e', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899', '#14b8a6', '#f97316', '#06b6d4', '#84cc16'];
-                return (
-                  <div key={type} className="flex items-center gap-3">
-                    <div className="w-32 text-sm text-[#64748b] truncate">{type.split(' ')[0]}</div>
-                    <div className="flex-1 h-6 bg-[#f0f4f8] rounded-full overflow-hidden">
-                      <div
-                        className="h-full rounded-full transition-all duration-500"
-                        style={{
-                          width: `${percentage}%`,
-                          backgroundColor: colors[index % colors.length],
-                        }}
-                      />
+              {materialsByType.length === 0 ? (
+                <p className="text-sm text-[#94a3b8] text-center py-4">No data</p>
+              ) : (
+                materialsByType.map(([type, count], index) => {
+                  const maxCount = Math.max(...materialsByType.map(([, c]) => c));
+                  const percentage = (count / maxCount) * 100;
+                  const colors = ['#3b82f6', '#22c55e', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899', '#14b8a6', '#f97316', '#06b6d4', '#84cc16'];
+                  return (
+                    <div key={type} className="flex items-center gap-3">
+                      <div className="w-32 text-sm text-[#64748b] truncate">{type}</div>
+                      <div className="flex-1 h-6 bg-[#f0f4f8] rounded-full overflow-hidden">
+                        <div
+                          className="h-full rounded-full transition-all duration-500"
+                          style={{
+                            width: `${percentage}%`,
+                            backgroundColor: colors[index % colors.length],
+                          }}
+                        />
+                      </div>
+                      <div className="w-8 text-sm font-medium text-[#0f172a]">{count}</div>
                     </div>
-                    <div className="w-8 text-sm font-medium text-[#0f172a]">{count}</div>
-                  </div>
-                );
-              })}
+                  );
+                })
+              )}
             </div>
           </Card>
 
-          {/* Stock Status */}
-          <Card title="Stock Status Distribution">
+          {/* Test Status Distribution */}
+          <Card title="Material Test Status">
             <div className="space-y-3">
-              {stockStatusData.map(([status, count]) => {
-                const maxCount = Math.max(...stockStatusData.map(([, c]) => c));
-                const percentage = (count / maxCount) * 100;
-                const colorMap: Record<string, string> = {
-                  'In Stock': '#22c55e',
-                  'Low Stock': '#f59e0b',
-                  'Out of Stock': '#ef4444',
-                  'Discontinued': '#94a3b8',
-                };
-                return (
-                  <div key={status} className="flex items-center gap-3">
-                    <div className="w-32 text-sm text-[#64748b]">{status}</div>
-                    <div className="flex-1 h-6 bg-[#f0f4f8] rounded-full overflow-hidden">
-                      <div
-                        className="h-full rounded-full transition-all duration-500"
-                        style={{
-                          width: `${percentage}%`,
-                          backgroundColor: colorMap[status] || '#94a3b8',
-                        }}
-                      />
+              {materialsByTestStatus.length === 0 ? (
+                <p className="text-sm text-[#94a3b8] text-center py-4">No test data</p>
+              ) : (
+                materialsByTestStatus.map(([status, count]) => {
+                  const maxCount = Math.max(...materialsByTestStatus.map(([, c]) => c));
+                  const percentage = (count / maxCount) * 100;
+                  const colorMap: Record<string, string> = {
+                    'Pass': '#22c55e',
+                    'Conditional Tolerance': '#f59e0b',
+                    'Fail': '#ef4444',
+                  };
+                  return (
+                    <div key={status} className="flex items-center gap-3">
+                      <div className="w-36 text-sm text-[#64748b]">{status}</div>
+                      <div className="flex-1 h-6 bg-[#f0f4f8] rounded-full overflow-hidden">
+                        <div
+                          className="h-full rounded-full transition-all duration-500"
+                          style={{
+                            width: `${percentage}%`,
+                            backgroundColor: colorMap[status] || '#94a3b8',
+                          }}
+                        />
+                      </div>
+                      <div className="w-8 text-sm font-medium text-[#0f172a]">{count}</div>
                     </div>
-                    <div className="w-8 text-sm font-medium text-[#0f172a]">{count}</div>
-                  </div>
-                );
-              })}
+                  );
+                })
+              )}
+            </div>
+          </Card>
+        </div>
+
+        {/* Second Charts Row */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Materials by Supplier */}
+          <Card title="Materials by Supplier">
+            <div className="space-y-3">
+              {Object.entries(stats.materialsBySupplier)
+                .sort(([, a], [, b]) => b - a)
+                .map(([supplier, count], index) => {
+                  const maxCount = Math.max(...Object.values(stats.materialsBySupplier));
+                  const percentage = (count / maxCount) * 100;
+                  const colors = ['#3b82f6', '#8b5cf6', '#ec4899', '#f59e0b', '#22c55e', '#06b6d4'];
+                  return (
+                    <div key={supplier} className="flex items-center gap-3">
+                      <div className="w-40 text-sm text-[#64748b] truncate">{supplier}</div>
+                      <div className="flex-1 h-6 bg-[#f0f4f8] rounded-full overflow-hidden">
+                        <div
+                          className="h-full rounded-full transition-all duration-500"
+                          style={{
+                            width: `${percentage}%`,
+                            backgroundColor: colors[index % colors.length],
+                          }}
+                        />
+                      </div>
+                      <div className="w-8 text-sm font-medium text-[#0f172a]">{count}</div>
+                    </div>
+                  );
+                })}
+            </div>
+          </Card>
+
+          {/* MOQ Unit Distribution */}
+          <Card title="Material MOQ Unit">
+            <div className="space-y-3">
+              {materialsByMOQ.length === 0 ? (
+                <p className="text-sm text-[#94a3b8] text-center py-4">No data</p>
+              ) : (
+                materialsByMOQ.map(([unit, count]) => {
+                  const maxCount = Math.max(...materialsByMOQ.map(([, c]) => c));
+                  const percentage = (count / maxCount) * 100;
+                  const colorMap: Record<string, string> = {
+                    'meter': '#3b82f6',
+                    'kg': '#22c55e',
+                  };
+                  return (
+                    <div key={unit} className="flex items-center gap-3">
+                      <div className="w-32 text-sm text-[#64748b]">{unit}</div>
+                      <div className="flex-1 h-6 bg-[#f0f4f8] rounded-full overflow-hidden">
+                        <div
+                          className="h-full rounded-full transition-all duration-500"
+                          style={{
+                            width: `${percentage}%`,
+                            backgroundColor: colorMap[unit] || '#94a3b8',
+                          }}
+                        />
+                      </div>
+                      <div className="w-8 text-sm font-medium text-[#0f172a]">{count}</div>
+                    </div>
+                  );
+                })
+              )}
             </div>
           </Card>
         </div>
@@ -233,10 +303,10 @@ export function Dashboard() {
                         Material
                       </th>
                       <th className="text-left py-3 px-4 text-xs font-bold text-[#64748b] uppercase tracking-wide">
-                        Type
+                        Supplier
                       </th>
                       <th className="text-left py-3 px-4 text-xs font-bold text-[#64748b] uppercase tracking-wide">
-                        Status
+                        Test Status
                       </th>
                       <th className="text-left py-3 px-4 text-xs font-bold text-[#64748b] uppercase tracking-wide">
                         Updated
@@ -257,10 +327,10 @@ export function Dashboard() {
                           </div>
                         </td>
                         <td className="py-3 px-4 text-sm text-[#64748b]">
-                          {material.materialType}
+                          {material.supplierName || material.supplier}
                         </td>
                         <td className="py-3 px-4">
-                          <StatusBadge status={material.stockStatus} />
+                          <TestStatusBadge status={material.testStatus} />
                         </td>
                         <td className="py-3 px-4 text-sm text-[#94a3b8]">
                           {material.updatedAt}
@@ -318,21 +388,28 @@ export function Dashboard() {
   );
 }
 
-// Status Badge Component
-function StatusBadge({ status }: { status: string }) {
+// Test Status Badge Component
+function TestStatusBadge({ status }: { status?: string }) {
   const config: Record<string, { bg: string; text: string; icon: React.ReactNode }> = {
-    in_stock: { bg: 'bg-[#22c55e]/10', text: 'text-[#22c55e]', icon: <CheckCircle className="w-3 h-3" /> },
-    low_stock: { bg: 'bg-[#f59e0b]/10', text: 'text-[#f59e0b]', icon: <AlertTriangle className="w-3 h-3" /> },
-    out_of_stock: { bg: 'bg-[#ef4444]/10', text: 'text-[#ef4444]', icon: <XCircle className="w-3 h-3" /> },
-    discontinued: { bg: 'bg-[#94a3b8]/10', text: 'text-[#94a3b8]', icon: <MinusCircle className="w-3 h-3" /> },
+    'Pass': { bg: 'bg-[#22c55e]/10', text: 'text-[#22c55e]', icon: <CheckCircle className="w-3 h-3" /> },
+    'Conditional Tolerance': { bg: 'bg-[#f59e0b]/10', text: 'text-[#f59e0b]', icon: <AlertTriangle className="w-3 h-3" /> },
+    'Fail': { bg: 'bg-[#ef4444]/10', text: 'text-[#ef4444]', icon: <XCircle className="w-3 h-3" /> },
   };
 
-  const { bg, text, icon } = config[status] || config.in_stock;
+  if (!status) {
+    return (
+      <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs bg-[#94a3b8]/10 text-[#94a3b8]">
+        N/A
+      </span>
+    );
+  }
+
+  const { bg, text, icon } = config[status] || config['Pass'];
 
   return (
     <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs ${bg} ${text}`}>
       {icon}
-      {status.replace('_', ' ').replace(/\b\w/g, (l) => l.toUpperCase())}
+      {status}
     </span>
   );
 }
@@ -352,16 +429,16 @@ function QuickActionButton({
   return (
     <button
       onClick={onClick}
-      className="w-full flex items-center gap-3 p-3 rounded-lg border border-[#e2e8f0] hover:border-[#3b82f6] hover:bg-[#f0f4f8]/50 transition-all group"
+      className="w-full flex items-start gap-3 p-3 rounded-lg hover:bg-[#f8fafc] transition-colors text-left border border-[#e2e8f0] hover:border-[#cbd5e1]"
     >
-      <div className="w-10 h-10 bg-[#f0f4f8] rounded-lg flex items-center justify-center text-[#64748b] group-hover:bg-[#3b82f6]/10 group-hover:text-[#3b82f6] transition-colors">
+      <div className="w-10 h-10 rounded-lg bg-[#f0f4f8] flex items-center justify-center text-[#3b82f6] flex-shrink-0">
         {icon}
       </div>
-      <div className="flex-1 text-left">
+      <div className="flex-1 min-w-0">
         <p className="font-medium text-sm text-[#0f172a]">{label}</p>
-        <p className="text-xs text-[#94a3b8]">{description}</p>
+        <p className="text-xs text-[#94a3b8] mt-0.5">{description}</p>
       </div>
-      <ArrowRight className="w-4 h-4 text-[#94a3b8] group-hover:text-[#3b82f6] transition-colors" />
+      <ArrowRight className="w-4 h-4 text-[#94a3b8] flex-shrink-0 mt-2" />
     </button>
   );
 }

@@ -1,4 +1,4 @@
-import { Material, Supplier, Category, AuditLog, DashboardStats } from '../types';
+﻿import { Material, Supplier, Category, AuditLog, DashboardStats } from '../types';
 
 // Generate unique IDs
 export const generateId = () => Math.random().toString(36).substr(2, 9);
@@ -165,6 +165,20 @@ export const mockSuppliers: Supplier[] = [
     createdAt: '2024-03-01',
     updatedAt: '2024-03-08',
   },
+  {
+    id: 'sup-006',
+    name: 'NYLtex',
+    code: 'NYL-006',
+    contact: '',
+    email: '',
+    phone: '',
+    address: '',
+    region: '',
+    rating: 0,
+    materials: [],
+    createdAt: '2026-06-04',
+    updatedAt: '2026-06-04',
+  },
 ];
 
 // Mock Materials - Updated with new field structure
@@ -222,6 +236,17 @@ export const mockMaterials: Material[] = [
     createdBy: 'Admin',
     testReports: [],
     certifications: ['BCI', 'OEKO-TEX'],
+    // Module 3: Cost and Lead-time
+    usdPerMCuttable: '3.5',
+    rmbPerMCuttable: '25.0',
+    costValidationDate: '2026-01-15',
+    materialMOQ: 'meter',
+    materialMCQ: 'meter',
+    sampleYardageDevTime: '7',
+    bulkProductionTime: '15',
+    // Module 4: Material Test
+    testReportFiles: [],
+    testStatus: 'Pass',
   },
   {
     id: 'mat-002',
@@ -276,6 +301,17 @@ export const mockMaterials: Material[] = [
     createdBy: 'Admin',
     testReports: [],
     certifications: ['GOTS', 'OEKO-TEX'],
+    // Module 3: Cost and Lead-time
+    usdPerMCuttable: '5.2',
+    rmbPerMCuttable: '37.0',
+    costValidationDate: '2026-01-20',
+    materialMOQ: 'meter',
+    materialMCQ: 'meter',
+    sampleYardageDevTime: '10',
+    bulkProductionTime: '20',
+    // Module 4: Material Test
+    testReportFiles: [],
+    testStatus: 'Pass',
   },
   {
     id: 'mat-003',
@@ -330,6 +366,17 @@ export const mockMaterials: Material[] = [
     createdBy: 'Admin',
     testReports: [],
     certifications: [],
+    // Module 3: Cost and Lead-time
+    usdPerMCuttable: '6.8',
+    rmbPerMCuttable: '48.5',
+    costValidationDate: '2026-02-01',
+    materialMOQ: 'meter',
+    materialMCQ: 'meter',
+    sampleYardageDevTime: '10',
+    bulkProductionTime: '25',
+    // Module 4: Material Test
+    testReportFiles: [],
+    testStatus: 'Conditional Tolerance',
   },
   {
     id: 'mat-004',
@@ -384,6 +431,17 @@ export const mockMaterials: Material[] = [
     createdBy: 'Admin',
     testReports: [],
     certifications: [],
+    // Module 3: Cost and Lead-time
+    usdPerMCuttable: '12.0',
+    rmbPerMCuttable: '85.0',
+    costValidationDate: '2026-02-10',
+    materialMOQ: 'meter',
+    materialMCQ: 'meter',
+    sampleYardageDevTime: '7',
+    bulkProductionTime: '20',
+    // Module 4: Material Test
+    testReportFiles: [],
+    testStatus: 'Pass',
   },
   {
     id: 'mat-005',
@@ -438,6 +496,17 @@ export const mockMaterials: Material[] = [
     createdBy: 'Admin',
     testReports: [],
     certifications: [],
+    // Module 3: Cost and Lead-time
+    usdPerMCuttable: '11.5',
+    rmbPerMCuttable: '82.0',
+    costValidationDate: '2026-02-15',
+    materialMOQ: 'meter',
+    materialMCQ: 'meter',
+    sampleYardageDevTime: '7',
+    bulkProductionTime: '20',
+    // Module 4: Material Test
+    testReportFiles: [],
+    testStatus: 'Pass',
   },
   {
     id: 'mat-006',
@@ -492,6 +561,17 @@ export const mockMaterials: Material[] = [
     createdBy: 'Admin',
     testReports: [],
     certifications: ['GRS'],
+    // Module 3: Cost and Lead-time
+    usdPerMCuttable: '2.8',
+    rmbPerMCuttable: '20.0',
+    costValidationDate: '2026-02-20',
+    materialMOQ: 'kg',
+    materialMCQ: 'kg',
+    sampleYardageDevTime: '7',
+    bulkProductionTime: '18',
+    // Module 4: Material Test
+    testReportFiles: [],
+    testStatus: 'Pass',
   },
   {
     id: 'mat-007',
@@ -546,6 +626,17 @@ export const mockMaterials: Material[] = [
     createdBy: 'Admin',
     testReports: [],
     certifications: [],
+    // Module 3: Cost and Lead-time
+    usdPerMCuttable: '4.2',
+    rmbPerMCuttable: '30.0',
+    costValidationDate: '2026-03-01',
+    materialMOQ: 'meter',
+    materialMCQ: 'meter',
+    sampleYardageDevTime: '10',
+    bulkProductionTime: '22',
+    // Module 4: Material Test
+    testReportFiles: [],
+    testStatus: 'Conditional Tolerance',
   },
   {
     id: 'mat-008',
@@ -600,6 +691,17 @@ export const mockMaterials: Material[] = [
     createdBy: 'Admin',
     testReports: [],
     certifications: ['BCI'],
+    // Module 3: Cost and Lead-time
+    usdPerMCuttable: '2.5',
+    rmbPerMCuttable: '18.0',
+    costValidationDate: '2026-03-05',
+    materialMOQ: 'kg',
+    materialMCQ: 'kg',
+    sampleYardageDevTime: '7',
+    bulkProductionTime: '15',
+    // Module 4: Material Test
+    testReportFiles: [],
+    testStatus: 'Pass',
   },
   {
     id: 'mat-009',
@@ -654,6 +756,17 @@ export const mockMaterials: Material[] = [
     createdBy: 'Admin',
     testReports: [],
     certifications: [],
+    // Module 3: Cost and Lead-time
+    usdPerMCuttable: '3.0',
+    rmbPerMCuttable: '21.5',
+    costValidationDate: '2026-03-10',
+    materialMOQ: 'meter',
+    materialMCQ: 'meter',
+    sampleYardageDevTime: '10',
+    bulkProductionTime: '20',
+    // Module 4: Material Test
+    testReportFiles: [],
+    testStatus: 'Fail',
   },
   {
     id: 'mat-010',
@@ -708,6 +821,17 @@ export const mockMaterials: Material[] = [
     createdBy: 'Admin',
     testReports: [],
     certifications: [],
+    // Module 3: Cost and Lead-time
+    usdPerMCuttable: '4.5',
+    rmbPerMCuttable: '32.0',
+    costValidationDate: '2026-03-15',
+    materialMOQ: 'meter',
+    materialMCQ: 'meter',
+    sampleYardageDevTime: '10',
+    bulkProductionTime: '22',
+    // Module 4: Material Test
+    testReportFiles: [],
+    testStatus: 'Pass',
   },
   {
     id: 'mat-011',
@@ -762,6 +886,17 @@ export const mockMaterials: Material[] = [
     createdBy: 'Admin',
     testReports: [],
     certifications: [],
+    // Module 3: Cost and Lead-time
+    usdPerMCuttable: '3.2',
+    rmbPerMCuttable: '23.0',
+    costValidationDate: '2026-03-20',
+    materialMOQ: 'meter',
+    materialMCQ: 'meter',
+    sampleYardageDevTime: '7',
+    bulkProductionTime: '14',
+    // Module 4: Material Test
+    testReportFiles: [],
+    testStatus: 'Pass',
   },
   {
     id: 'mat-012',
@@ -816,6 +951,17 @@ export const mockMaterials: Material[] = [
     createdBy: 'Admin',
     testReports: [],
     certifications: [],
+    // Module 3: Cost and Lead-time
+    usdPerMCuttable: '3.8',
+    rmbPerMCuttable: '27.0',
+    costValidationDate: '2026-03-25',
+    materialMOQ: 'meter',
+    materialMCQ: 'meter',
+    sampleYardageDevTime: '7',
+    bulkProductionTime: '16',
+    // Module 4: Material Test
+    testReportFiles: [],
+    testStatus: 'Conditional Tolerance',
   },
 ];
 
@@ -973,23 +1119,33 @@ export const mockAuditLogs: AuditLog[] = [
 export const calculateDashboardStats = (materials: Material[]): DashboardStats => {
   const materialsByType: Record<string, number> = {};
   const materialsBySupplier: Record<string, number> = {};
-  const stockStatus: Record<string, number> = {};
+  const materialsByTestStatus: Record<string, number> = {};
+  const materialsByMOQ: Record<string, number> = {};
 
   materials.forEach(m => {
-    // Count by type
-    materialsByType[m.materialType] = (materialsByType[m.materialType] || 0) + 1;
-    
+    // Count by top category (Material Specification)
+    const type = m.materialTopCategory || m.materialType || 'Unknown';
+    materialsByType[type] = (materialsByType[type] || 0) + 1;
+
     // Count by supplier
-    materialsBySupplier[m.supplier] = (materialsBySupplier[m.supplier] || 0) + 1;
-    
-    // Count by stock status
-    stockStatus[m.stockStatus] = (stockStatus[m.stockStatus] || 0) + 1;
+    const supplier = m.supplierName || m.supplier || 'Unknown';
+    materialsBySupplier[supplier] = (materialsBySupplier[supplier] || 0) + 1;
+
+    // Count by test status
+    if (m.testStatus) {
+      materialsByTestStatus[m.testStatus] = (materialsByTestStatus[m.testStatus] || 0) + 1;
+    }
+
+    // Count by MOQ unit
+    if (m.materialMOQ) {
+      materialsByMOQ[m.materialMOQ] = (materialsByMOQ[m.materialMOQ] || 0) + 1;
+    }
   });
 
   return {
     totalMaterials: materials.length,
     pendingReview: materials.filter(m => m.status === 'pending').length,
-    lowStock: materials.filter(m => m.stockStatus === 'low_stock').length,
+    approvedMaterials: materials.filter(m => m.status === 'approved').length,
     recentUpdates: materials.filter(m => {
       const updatedAt = new Date(m.updatedAt);
       const thirtyDaysAgo = new Date();
@@ -998,6 +1154,7 @@ export const calculateDashboardStats = (materials: Material[]): DashboardStats =
     }).length,
     materialsByType,
     materialsBySupplier,
-    stockStatus,
+    materialsByTestStatus,
+    materialsByMOQ,
   };
 };

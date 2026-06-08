@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard,
   Package,
@@ -7,29 +7,54 @@ import {
   Building2,
   Tags,
   FileText,
-  Settings,
+  Settings as SettingsIcon,
   ChevronLeft,
   ChevronRight,
   Sparkles,
+  LogOut,
 } from 'lucide-react';
-import { useApp } from '../../context/AppContext';
+import { useAuth } from '../../context/AuthContext';
 
 interface SidebarProps {
   collapsed: boolean;
   onToggle: () => void;
 }
 
-const navItems = [
+const allNavItems = [
   { path: '/', icon: LayoutDashboard, label: 'Dashboard & AI' },
   { path: '/library', icon: Package, label: 'Material Library' },
   { path: '/create', icon: PlusCircle, label: 'Create Material' },
-  { path: '/suppliers', icon: Building2, label: 'Supplier Management' },
+  { path: '/suppliers', icon: Building2, label: 'Supplier Management', adminOnly: true },
   { path: '/categories', icon: Tags, label: 'Categories' },
-  { path: '/logs', icon: FileText, label: 'Audit Logs' },
-  { path: '/settings', icon: Settings, label: 'Settings' },
+  { path: '/logs', icon: FileText, label: 'Audit Logs', adminOnly: true },
+  { path: '/settings', icon: SettingsIcon, label: 'Settings', adminOnly: true },
 ];
 
 export function Sidebar({ collapsed, onToggle }: SidebarProps) {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
+  // Filter nav items based on role
+  const navItems = allNavItems.filter((item) => {
+    if (item.adminOnly && user?.role !== 'admin') return false;
+    return true;
+  });
+
+  // User initials
+  const initials = user?.displayName
+    ?.split(' ')
+    .map((s) => s[0])
+    .join('')
+    .slice(0, 2)
+    .toUpperCase() || 'U';
+
+  const roleLabel = user?.role === 'admin' ? 'ADMIN' : 'SUPPLIER';
+
   return (
     <aside
       className={`fixed left-0 top-0 h-full bg-gradient-to-b from-[#334155] to-[#1e293b] z-40 transition-all duration-300 flex flex-col ${
@@ -88,19 +113,37 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
         )}
       </button>
 
-      {/* User Info */}
+      {/* User Info & Logout */}
       <div className="p-4 border-t border-white/10">
         <div className={`flex items-center gap-3 ${collapsed ? 'justify-center' : ''}`}>
           <div className="w-10 h-10 bg-[#3b82f6] rounded-full flex items-center justify-center flex-shrink-0">
-            <span className="text-white font-semibold">AD</span>
+            <span className="text-white font-semibold text-sm">{initials}</span>
           </div>
           {!collapsed && (
-            <div className="flex flex-col overflow-hidden">
-              <span className="text-white font-medium text-sm">System Administrator</span>
-              <span className="text-white/60 text-xs">SUPERADMIN</span>
+            <div className="flex flex-col overflow-hidden flex-1 min-w-0">
+              <span className="text-white font-medium text-sm truncate">{user?.displayName}</span>
+              <span className="text-white/60 text-xs">{roleLabel}</span>
             </div>
           )}
+          {!collapsed && (
+            <button
+              onClick={handleLogout}
+              className="text-white/60 hover:text-white p-1.5 rounded hover:bg-white/10 transition-colors flex-shrink-0"
+              title="Logout"
+            >
+              <LogOut className="w-4 h-4" />
+            </button>
+          )}
         </div>
+        {collapsed && (
+          <button
+            onClick={handleLogout}
+            className="mt-2 w-full flex items-center justify-center text-white/60 hover:text-white p-1.5 rounded hover:bg-white/10 transition-colors"
+            title="Logout"
+          >
+            <LogOut className="w-4 h-4" />
+          </button>
+        )}
       </div>
     </aside>
   );

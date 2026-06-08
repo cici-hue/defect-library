@@ -56,6 +56,21 @@ export interface Material {
   // Test reports
   testReports?: TestReport[];
   certifications?: string[];
+
+  // Module 3: Cost and Lead-time
+  usdPerMCuttable?: string;
+  usdCalculated60?: string;
+  rmbPerMCuttable?: string;
+  rmbCalculated60?: string;
+  costValidationDate?: string;
+  materialMOQ?: string; // meter or kg
+  materialMCQ?: string; // meter or kg
+  sampleYardageDevTime?: string; // days
+  bulkProductionTime?: string; // days
+
+  // Module 4: Material Test
+  testReportFiles?: TestReport[];
+  testStatus?: string; // Pass / Conditional Tolerance / Fail
 }
 
 export interface TestReport {
@@ -133,9 +148,10 @@ export interface MaterialFilters {
 export interface DashboardStats {
   totalMaterials: number;
   pendingReview: number;
-  lowStock: number;
+  approvedMaterials: number;
   recentUpdates: number;
   materialsByType: Record<string, number>;
   materialsBySupplier: Record<string, number>;
-  stockStatus: Record<string, number>;
+  materialsByTestStatus: Record<string, number>;
+  materialsByMOQ: Record<string, number>;
 }
