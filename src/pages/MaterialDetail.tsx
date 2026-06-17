@@ -343,8 +343,22 @@ export function MaterialDetail() {
                     Material MOQ & MCQ
                   </h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <DetailItem label="Material MOQ" value={material.materialMOQ || '-'} />
-                    <DetailItem label="Material MCQ" value={material.materialMCQ || '-'} />
+                    <DetailItem
+                      label="Material MOQ"
+                      value={
+                        material.materialMOQQuantity || material.materialMOQUnit
+                          ? `${material.materialMOQQuantity || '-'} ${material.materialMOQUnit || ''}`.trim()
+                          : '-'
+                      }
+                    />
+                    <DetailItem
+                      label="Material MCQ"
+                      value={
+                        material.materialMCQQuantity || material.materialMCQUnit
+                          ? `${material.materialMCQQuantity || '-'} ${material.materialMCQUnit || ''}`.trim()
+                          : '-'
+                      }
+                    />
                   </div>
                 </div>
 

@@ -8,8 +8,10 @@ export interface CostLeadTimeData {
   rmbCalculated60: string;
   costValidationDate: string;
   // Material MOQ & MCQ
-  materialMOQ: string; // meter 或 kg
-  materialMCQ: string; // meter 或 kg
+  materialMOQQuantity: string; // 数量
+  materialMOQUnit: 'meter' | 'kg'; // 单位
+  materialMCQQuantity: string; // 数量
+  materialMCQUnit: 'meter' | 'kg'; // 单位
   // Material Lead-time
   sampleYardageDevTime: string;
   bulkProductionTime: string;
@@ -21,8 +23,10 @@ export const defaultCostLeadTimeData: CostLeadTimeData = {
   rmbPerMCuttable: '',
   rmbCalculated60: '',
   costValidationDate: '',
-  materialMOQ: '',
-  materialMCQ: '',
+  materialMOQQuantity: '',
+  materialMOQUnit: 'meter',
+  materialMCQQuantity: '',
+  materialMCQUnit: 'meter',
   sampleYardageDevTime: '',
   bulkProductionTime: '',
 };

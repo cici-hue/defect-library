@@ -234,8 +234,10 @@ export const mockMaterials: Material[] = [
     usdPerMCuttable: '3.5',
     rmbPerMCuttable: '25.0',
     costValidationDate: '2026-01-15',
-    materialMOQ: 'meter',
-    materialMCQ: 'meter',
+    materialMOQQuantity: '500',
+    materialMOQUnit: 'meter',
+    materialMCQQuantity: '1000',
+    materialMCQUnit: 'meter',
     sampleYardageDevTime: '7',
     bulkProductionTime: '15',
     // Module 4: Material Test
@@ -299,8 +301,10 @@ export const mockMaterials: Material[] = [
     usdPerMCuttable: '5.2',
     rmbPerMCuttable: '37.0',
     costValidationDate: '2026-01-20',
-    materialMOQ: 'meter',
-    materialMCQ: 'meter',
+    materialMOQQuantity: '500',
+    materialMOQUnit: 'meter',
+    materialMCQQuantity: '1000',
+    materialMCQUnit: 'meter',
     sampleYardageDevTime: '10',
     bulkProductionTime: '20',
     // Module 4: Material Test
@@ -364,8 +368,10 @@ export const mockMaterials: Material[] = [
     usdPerMCuttable: '6.8',
     rmbPerMCuttable: '48.5',
     costValidationDate: '2026-02-01',
-    materialMOQ: 'meter',
-    materialMCQ: 'meter',
+    materialMOQQuantity: '500',
+    materialMOQUnit: 'meter',
+    materialMCQQuantity: '1000',
+    materialMCQUnit: 'meter',
     sampleYardageDevTime: '10',
     bulkProductionTime: '25',
     // Module 4: Material Test
@@ -429,8 +435,10 @@ export const mockMaterials: Material[] = [
     usdPerMCuttable: '12.0',
     rmbPerMCuttable: '85.0',
     costValidationDate: '2026-02-10',
-    materialMOQ: 'meter',
-    materialMCQ: 'meter',
+    materialMOQQuantity: '500',
+    materialMOQUnit: 'meter',
+    materialMCQQuantity: '1000',
+    materialMCQUnit: 'meter',
     sampleYardageDevTime: '7',
     bulkProductionTime: '20',
     // Module 4: Material Test
@@ -494,8 +502,10 @@ export const mockMaterials: Material[] = [
     usdPerMCuttable: '11.5',
     rmbPerMCuttable: '82.0',
     costValidationDate: '2026-02-15',
-    materialMOQ: 'meter',
-    materialMCQ: 'meter',
+    materialMOQQuantity: '500',
+    materialMOQUnit: 'meter',
+    materialMCQQuantity: '1000',
+    materialMCQUnit: 'meter',
     sampleYardageDevTime: '7',
     bulkProductionTime: '20',
     // Module 4: Material Test
@@ -559,8 +569,10 @@ export const mockMaterials: Material[] = [
     usdPerMCuttable: '2.8',
     rmbPerMCuttable: '20.0',
     costValidationDate: '2026-02-20',
-    materialMOQ: 'kg',
-    materialMCQ: 'kg',
+    materialMOQQuantity: '300',
+    materialMOQUnit: 'kg',
+    materialMCQQuantity: '800',
+    materialMCQUnit: 'kg',
     sampleYardageDevTime: '7',
     bulkProductionTime: '18',
     // Module 4: Material Test
@@ -624,8 +636,10 @@ export const mockMaterials: Material[] = [
     usdPerMCuttable: '4.2',
     rmbPerMCuttable: '30.0',
     costValidationDate: '2026-03-01',
-    materialMOQ: 'meter',
-    materialMCQ: 'meter',
+    materialMOQQuantity: '500',
+    materialMOQUnit: 'meter',
+    materialMCQQuantity: '1000',
+    materialMCQUnit: 'meter',
     sampleYardageDevTime: '10',
     bulkProductionTime: '22',
     // Module 4: Material Test
@@ -689,8 +703,10 @@ export const mockMaterials: Material[] = [
     usdPerMCuttable: '2.5',
     rmbPerMCuttable: '18.0',
     costValidationDate: '2026-03-05',
-    materialMOQ: 'kg',
-    materialMCQ: 'kg',
+    materialMOQQuantity: '300',
+    materialMOQUnit: 'kg',
+    materialMCQQuantity: '800',
+    materialMCQUnit: 'kg',
     sampleYardageDevTime: '7',
     bulkProductionTime: '15',
     // Module 4: Material Test
@@ -754,8 +770,10 @@ export const mockMaterials: Material[] = [
     usdPerMCuttable: '3.0',
     rmbPerMCuttable: '21.5',
     costValidationDate: '2026-03-10',
-    materialMOQ: 'meter',
-    materialMCQ: 'meter',
+    materialMOQQuantity: '500',
+    materialMOQUnit: 'meter',
+    materialMCQQuantity: '1000',
+    materialMCQUnit: 'meter',
     sampleYardageDevTime: '10',
     bulkProductionTime: '20',
     // Module 4: Material Test
@@ -819,8 +837,10 @@ export const mockMaterials: Material[] = [
     usdPerMCuttable: '4.5',
     rmbPerMCuttable: '32.0',
     costValidationDate: '2026-03-15',
-    materialMOQ: 'meter',
-    materialMCQ: 'meter',
+    materialMOQQuantity: '500',
+    materialMOQUnit: 'meter',
+    materialMCQQuantity: '1000',
+    materialMCQUnit: 'meter',
     sampleYardageDevTime: '10',
     bulkProductionTime: '22',
     // Module 4: Material Test
@@ -884,8 +904,10 @@ export const mockMaterials: Material[] = [
     usdPerMCuttable: '3.2',
     rmbPerMCuttable: '23.0',
     costValidationDate: '2026-03-20',
-    materialMOQ: 'meter',
-    materialMCQ: 'meter',
+    materialMOQQuantity: '500',
+    materialMOQUnit: 'meter',
+    materialMCQQuantity: '1000',
+    materialMCQUnit: 'meter',
     sampleYardageDevTime: '7',
     bulkProductionTime: '14',
     // Module 4: Material Test
@@ -949,8 +971,10 @@ export const mockMaterials: Material[] = [
     usdPerMCuttable: '3.8',
     rmbPerMCuttable: '27.0',
     costValidationDate: '2026-03-25',
-    materialMOQ: 'meter',
-    materialMCQ: 'meter',
+    materialMOQQuantity: '500',
+    materialMOQUnit: 'meter',
+    materialMCQQuantity: '1000',
+    materialMCQUnit: 'meter',
     sampleYardageDevTime: '7',
     bulkProductionTime: '16',
     // Module 4: Material Test
@@ -1131,8 +1155,8 @@ export const calculateDashboardStats = (materials: Material[]): DashboardStats =
     }
 
     // Count by MOQ unit
-    if (m.materialMOQ) {
-      materialsByMOQ[m.materialMOQ] = (materialsByMOQ[m.materialMOQ] || 0) + 1;
+    if (m.materialMOQUnit) {
+      materialsByMOQ[m.materialMOQUnit] = (materialsByMOQ[m.materialMOQUnit] || 0) + 1;
     }
   });
 
@@ -1152,3 +1176,4 @@ export const calculateDashboardStats = (materials: Material[]): DashboardStats =
     materialsByMOQ,
   };
 };
+

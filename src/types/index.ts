@@ -62,8 +62,10 @@ export interface Material {
   rmbPerMCuttable?: string;
   rmbCalculated60?: string;
   costValidationDate?: string;
-  materialMOQ?: string; // meter or kg
-  materialMCQ?: string; // meter or kg
+  materialMOQQuantity?: string; // 数量
+  materialMOQUnit?: 'meter' | 'kg'; // 单位
+  materialMCQQuantity?: string; // 数量
+  materialMCQUnit?: 'meter' | 'kg'; // 单位
   sampleYardageDevTime?: string; // days
   bulkProductionTime?: string; // days
 

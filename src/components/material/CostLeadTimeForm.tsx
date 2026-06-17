@@ -128,13 +128,25 @@ export function CostLeadTimeForm({ data, onChange, cuttableWidth }: CostLeadTime
           <span className="w-1.5 h-1.5 bg-[#475569] rounded-full"></span>
           Material MOQ
         </h4>
-        <div className="pl-4">
+        <div className="pl-4 flex items-center gap-2 w-full md:w-1/2">
+          <input
+            type="text"
+            inputMode="decimal"
+            value={data.materialMOQQuantity}
+            onChange={(e) => {
+              const val = e.target.value.replace(/[^0-9.]/g, '');
+              handleChange('materialMOQQuantity', val);
+            }}
+            placeholder="Enter quantity..."
+            className="flex-1 px-3 py-2 border border-[#e2e8f0] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#475569] focus:border-transparent"
+          />
           <SearchableSelect
             label=""
-            value={data.materialMOQ}
+            value={data.materialMOQUnit}
             options={['meter', 'kg']}
-            onChange={(value) => handleChange('materialMOQ', value)}
+            onChange={(value) => handleChange('materialMOQUnit', value as CostLeadTimeData['materialMOQUnit'])}
             placeholder="Select unit..."
+            compact
           />
         </div>
       </div>
@@ -145,13 +157,25 @@ export function CostLeadTimeForm({ data, onChange, cuttableWidth }: CostLeadTime
           <span className="w-1.5 h-1.5 bg-[#475569] rounded-full"></span>
           Material MCQ
         </h4>
-        <div className="pl-4">
+        <div className="pl-4 flex items-center gap-2 w-full md:w-1/2">
+          <input
+            type="text"
+            inputMode="decimal"
+            value={data.materialMCQQuantity}
+            onChange={(e) => {
+              const val = e.target.value.replace(/[^0-9.]/g, '');
+              handleChange('materialMCQQuantity', val);
+            }}
+            placeholder="Enter quantity..."
+            className="flex-1 px-3 py-2 border border-[#e2e8f0] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#475569] focus:border-transparent"
+          />
           <SearchableSelect
             label=""
-            value={data.materialMCQ}
+            value={data.materialMCQUnit}
             options={['meter', 'kg']}
-            onChange={(value) => handleChange('materialMCQ', value)}
+            onChange={(value) => handleChange('materialMCQUnit', value as CostLeadTimeData['materialMCQUnit'])}
             placeholder="Select unit..."
+            compact
           />
         </div>
       </div>

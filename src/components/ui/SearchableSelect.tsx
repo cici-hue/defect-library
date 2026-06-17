@@ -12,6 +12,7 @@ interface SearchableSelectProps {
   disabled?: boolean;
   className?: string;
   allowCustomInput?: boolean;
+  compact?: boolean; // 紧凑模式，适合作为 input 旁的单位选择
 }
 
 export function SearchableSelect({
@@ -24,6 +25,7 @@ export function SearchableSelect({
   disabled = false,
   className,
   allowCustomInput = true,
+  compact = false,
 }: SearchableSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -80,7 +82,7 @@ export function SearchableSelect({
   };
 
   return (
-    <div ref={containerRef} className={cn('relative', className)}>
+    <div ref={containerRef} className={cn('relative', compact ? 'w-32 shrink-0' : '', className)}>
       {label && (
         <label className="block text-sm font-medium text-[#1e293b] mb-1.5">
           {label}
