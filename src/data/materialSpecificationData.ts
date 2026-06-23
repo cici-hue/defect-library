@@ -275,6 +275,19 @@ export const sustainableOptions = [
   'No',
 ];
 
+// Customer 下拉选项 (9个) - 允许多选
+export const customerOptions = [
+  'BPH',
+  'WITT',
+  'ERF',
+  'Lascana',
+  'Adler',
+  'HSE',
+  'Manor',
+  'QVC',
+  'Otto Fashion & Sports',
+];
+
 // Material Specification 字段配置
 export const materialSpecificationFields: MaterialSpecificationField[] = [
   {
@@ -384,6 +397,14 @@ export const materialSpecificationFields: MaterialSpecificationField[] = [
     placeholder: 'Enter care recommendations...',
     required: false,
   },
+  {
+    name: 'customers',
+    label: 'Customer',
+    type: 'multiselect',
+    options: customerOptions,
+    placeholder: 'Select customers...',
+    required: false,
+  },
 ];
 
 // 默认值
@@ -405,4 +426,5 @@ export const defaultMaterialSpecification = {
   materialFunction: '',
   sustainable: '',
   careRecommendations: '',
+  customers: [],
 };

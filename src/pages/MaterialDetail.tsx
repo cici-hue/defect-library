@@ -33,6 +33,7 @@ import {
   Clock4,
   FlaskConical,
   Beaker,
+  Users,
 } from 'lucide-react';
 
 export function MaterialDetail() {
@@ -231,6 +232,28 @@ export function MaterialDetail() {
                     <DetailItem label="Sustainable" value={material.sustainable || '-'} />
                     <DetailItem label="Care Recommendations" value={material.careRecommendations || '-'} />
                   </div>
+                </div>
+
+                {/* Customer (多选) */}
+                <div className="bg-white rounded-lg border border-[#e2e8f0] p-4">
+                  <h3 className="text-sm font-semibold text-[#334155] mb-3 flex items-center gap-2">
+                    <Users className="w-4 h-4 text-[#475569]" />
+                    Customer
+                  </h3>
+                  {material.customers && material.customers.length > 0 ? (
+                    <div className="flex flex-wrap gap-2">
+                      {material.customers.map((c) => (
+                        <span
+                          key={c}
+                          className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-[#475569]/10 text-[#475569] border border-[#475569]/20"
+                        >
+                          {c}
+                        </span>
+                      ))}
+                    </div>
+                  ) : (
+                    <span className="text-sm text-[#94a3b8]">-</span>
+                  )}
                 </div>
 
                 {/* Comments */}

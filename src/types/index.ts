@@ -18,6 +18,7 @@ export interface Material {
   materialFunction?: string;
   sustainable?: string;
   careRecommendations?: string;
+  customers?: string[]; // 客户：多选，BPH/WITT/ERF/Lascana/Adler/HSE/Manor/QVC/Otto Fashion & Sports
   
   // Module 2: Supply Chain
   supplierName?: string;

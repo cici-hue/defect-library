@@ -14,6 +14,7 @@ import {
   impressionIntents,
   materialFunctions,
   sustainableOptions,
+  customerOptions,
 } from '../../data/materialSpecificationData';
 
 export interface FiberContentItem {
@@ -42,6 +43,7 @@ export interface MaterialSpecificationData {
   materialFunction: string;
   sustainable: string;
   careRecommendations: string;
+  customers: string[];
 }
 
 interface MaterialSpecificationFormProps {
@@ -379,6 +381,15 @@ export function MaterialSpecificationForm({ data, onChange }: MaterialSpecificat
         placeholder="Enter comments..."
         multiline
         rows={3}
+      />
+
+      {/* 第八行：Customer (多选) */}
+      <MultiSelect
+        label="Customer"
+        values={data.customers}
+        options={customerOptions}
+        onChange={(value) => handleChange('customers', value)}
+        placeholder="Select customers..."
       />
     </div>
   );

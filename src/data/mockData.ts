@@ -194,6 +194,7 @@ export const mockMaterials: Material[] = [
     materialFunction: 'Apparel',
     sustainable: 'Yes',
     careRecommendations: 'Machine wash cold, tumble dry low',
+    customers: ['BPH', 'WITT', 'Lascana'],
     
     // Module 2: Supply Chain
     supplierName: 'Zhangwei Textile Co.',
@@ -529,6 +530,7 @@ export const mockMaterials: Material[] = [
     materialFunction: 'Apparel',
     sustainable: 'Yes',
     careRecommendations: 'Machine wash cold, tumble dry low',
+    customers: ['BPH', 'WITT', 'Lascana'],
     
     // Module 2: Supply Chain
     supplierName: 'Shandong Cotton Group',
